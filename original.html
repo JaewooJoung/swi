@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automotive SPICE Assessment Tool - Navigation Systems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .process-group {
+            background: white;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .process-group:hover {
+            transform: translateY(-5px);
+        }
+        
+        .process-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .process-header h2 {
+            font-size: 1.4em;
+        }
+        
+        .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        
+        .process-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .process-content {
+            display: none;
+            padding: 25px;
+        }
+        
+        .process-content.active {
+            display: block;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .question h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .rating-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .rating-option {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .rating-option input[type="radio"] {
+            display: none;
+        }
+        
+        .rating-option label {
+            display: block;
+            padding: 12px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .rating-option input[type="radio"]:checked + label {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+            transform: scale(1.05);
+        }
+        
+        .rating-option label:hover {
+            background: #bdc3c7;
+        }
+        
+        .score-display {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-top: 30px;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .score-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        
+        .score-value {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .maturity-level {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .level-0 { background: #e74c3c; }
+        .level-1 { background: #f39c12; }
+        .level-2 { background: #f1c40f; }
+        .level-3 { background: #27ae60; }
+        .level-4 { background: #3498db; }
+        .level-5 { background: #9b59b6; }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .rating-options {
+                flex-direction: column;
+            }
+            
+            .rating-option {
+                min-width: auto;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                margin: 5px 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 Automotive SPICE Assessment</h1>
+            <p>Navigation Systems Company Evaluation Tool</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div id="overallProgress">Progress: 0%</div>
+        </div>
+
+        <div id="assessmentForm">
+            <!-- System Engineering Process Group -->
+            <div class="process-group">
+                <div class="process-header" onclick="toggleProcess('sys')">
+                    <h2>SYS - System Engineering Processes</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="process-content" id="sys-content">
+                    
+                    <!-- SYS.1 Requirements Elicitation -->
+                    <div class="question">
+                        <h4>SYS.1.1 - Are stakeholder expectations and requests obtained through direct solicitation and review of business proposals?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_1" value="0" id="sys1_1_0">
+                                <label for="sys1_1_0">N - Not Achieved (0-15%)</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_1" value="1" id="sys1_1_1">
+                                <label for="sys1_1_1">P - Partially (15-50%)</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_1" value="2" id="sys1_1_2">
+                                <label for="sys1_1_2">L - Largely (50-85%)</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_1" value="3" id="sys1_1_3">
+                                <label for="sys1_1_3">F - Fully (85-100%)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>SYS.1.2 - Are stakeholder requirements formalized and agreed upon by all affected parties?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_2" value="0" id="sys1_2_0">
+                                <label for="sys1_2_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_2" value="1" id="sys1_2_1">
+                                <label for="sys1_2_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_2" value="2" id="sys1_2_2">
+                                <label for="sys1_2_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys1_2" value="3" id="sys1_2_3">
+                                <label for="sys1_2_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SYS.2 System Requirements Analysis -->
+                    <div class="question">
+                        <h4>SYS.2.1 - Are system requirements specified using stakeholder requirements according to defined characteristics?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_1" value="0" id="sys2_1_0">
+                                <label for="sys2_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_1" value="1" id="sys2_1_1">
+                                <label for="sys2_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_1" value="2" id="sys2_1_2">
+                                <label for="sys2_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_1" value="3" id="sys2_1_3">
+                                <label for="sys2_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>SYS.2.2 - Are system requirements structured and prioritized appropriately?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_2" value="0" id="sys2_2_0">
+                                <label for="sys2_2_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_2" value="1" id="sys2_2_1">
+                                <label for="sys2_2_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_2" value="2" id="sys2_2_2">
+                                <label for="sys2_2_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys2_2" value="3" id="sys2_2_3">
+                                <label for="sys2_2_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SYS.3 System Architectural Design -->
+                    <div class="question">
+                        <h4>SYS.3.1 - Are static and dynamic aspects of system architecture specified and documented?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_1" value="0" id="sys3_1_0">
+                                <label for="sys3_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_1" value="1" id="sys3_1_1">
+                                <label for="sys3_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_1" value="2" id="sys3_1_2">
+                                <label for="sys3_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_1" value="3" id="sys3_1_3">
+                                <label for="sys3_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>SYS.3.2 - Is the system architecture analyzed against defined criteria with documented rationale?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_2" value="0" id="sys3_2_0">
+                                <label for="sys3_2_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_2" value="1" id="sys3_2_1">
+                                <label for="sys3_2_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_2" value="2" id="sys3_2_2">
+                                <label for="sys3_2_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sys3_2" value="3" id="sys3_2_3">
+                                <label for="sys3_2_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Software Engineering Process Group -->
+            <div class="process-group">
+                <div class="process-header" onclick="toggleProcess('swe')">
+                    <h2>SWE - Software Engineering Processes</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="process-content" id="swe-content">
+                    
+                    <!-- SWE.1 Software Requirements Analysis -->
+                    <div class="question">
+                        <h4>SWE.1.1 - Are software requirements specified using system requirements and architecture?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="swe1_1" value="0" id="swe1_1_0">
+                                <label for="swe1_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe1_1" value="1" id="swe1_1_1">
+                                <label for="swe1_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe1_1" value="2" id="swe1_1_2">
+                                <label for="swe1_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe1_1" value="3" id="swe1_1_3">
+                                <label for="swe1_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SWE.2 Software Architectural Design -->
+                    <div class="question">
+                        <h4>SWE.2.1 - Are static and dynamic aspects of software architecture specified and documented?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="swe2_1" value="0" id="swe2_1_0">
+                                <label for="swe2_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe2_1" value="1" id="swe2_1_1">
+                                <label for="swe2_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe2_1" value="2" id="swe2_1_2">
+                                <label for="swe2_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe2_1" value="3" id="swe2_1_3">
+                                <label for="swe2_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SWE.3 Software Detailed Design -->
+                    <div class="question">
+                        <h4>SWE.3.1 - Are software units developed consistent with detailed design and coding principles?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="swe3_1" value="0" id="swe3_1_0">
+                                <label for="swe3_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe3_1" value="1" id="swe3_1_1">
+                                <label for="swe3_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe3_1" value="2" id="swe3_1_2">
+                                <label for="swe3_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe3_1" value="3" id="swe3_1_3">
+                                <label for="swe3_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SWE.4 Software Unit Verification -->
+                    <div class="question">
+                        <h4>SWE.4.1 - Are verification measures for software units specified and selected appropriately?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="swe4_1" value="0" id="swe4_1_0">
+                                <label for="swe4_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe4_1" value="1" id="swe4_1_1">
+                                <label for="swe4_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe4_1" value="2" id="swe4_1_2">
+                                <label for="swe4_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe4_1" value="3" id="swe4_1_3">
+                                <label for="swe4_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SWE.5 Software Integration -->
+                    <div class="question">
+                        <h4>SWE.5.1 - Are software integration verification measures specified and performed?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="swe5_1" value="0" id="swe5_1_0">
+                                <label for="swe5_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe5_1" value="1" id="swe5_1_1">
+                                <label for="swe5_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe5_1" value="2" id="swe5_1_2">
+                                <label for="swe5_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe5_1" value="3" id="swe5_1_3">
+                                <label for="swe5_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SWE.6 Software Verification -->
+                    <div class="question">
+                        <h4>SWE.6.1 - Is the integrated software verified using selected verification measures?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="swe6_1" value="0" id="swe6_1_0">
+                                <label for="swe6_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe6_1" value="1" id="swe6_1_1">
+                                <label for="swe6_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe6_1" value="2" id="swe6_1_2">
+                                <label for="swe6_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="swe6_1" value="3" id="swe6_1_3">
+                                <label for="swe6_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Management Process Group -->
+            <div class="process-group">
+                <div class="process-header" onclick="toggleProcess('man')">
+                    <h2>MAN - Management Processes</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="process-content" id="man-content">
+                    
+                    <!-- MAN.3 Project Management -->
+                    <div class="question">
+                        <h4>MAN.3.1 - Is the scope of work for the navigation project clearly defined?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="man3_1" value="0" id="man3_1_0">
+                                <label for="man3_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man3_1" value="1" id="man3_1_1">
+                                <label for="man3_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man3_1" value="2" id="man3_1_2">
+                                <label for="man3_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man3_1" value="3" id="man3_1_3">
+                                <label for="man3_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>MAN.3.2 - Are project life cycle and work packages defined and monitored?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="man3_2" value="0" id="man3_2_0">
+                                <label for="man3_2_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man3_2" value="1" id="man3_2_1">
+                                <label for="man3_2_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man3_2" value="2" id="man3_2_2">
+                                <label for="man3_2_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man3_2" value="3" id="man3_2_3">
+                                <label for="man3_2_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAN.5 Risk Management -->
+                    <div class="question">
+                        <h4>MAN.5.1 - Are risk sources identified and potential undesirable events analyzed?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="man5_1" value="0" id="man5_1_0">
+                                <label for="man5_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man5_1" value="1" id="man5_1_1">
+                                <label for="man5_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man5_1" value="2" id="man5_1_2">
+                                <label for="man5_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man5_1" value="3" id="man5_1_3">
+                                <label for="man5_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAN.6 Measurement -->
+                    <div class="question">
+                        <h4>MAN.6.1 - Are measurement information needs identified and appropriate metrics collected?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="man6_1" value="0" id="man6_1_0">
+                                <label for="man6_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man6_1" value="1" id="man6_1_1">
+                                <label for="man6_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man6_1" value="2" id="man6_1_2">
+                                <label for="man6_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="man6_1" value="3" id="man6_1_3">
+                                <label for="man6_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supporting Process Group -->
+            <div class="process-group">
+                <div class="process-header" onclick="toggleProcess('sup')">
+                    <h2>SUP - Supporting Processes</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="process-content" id="sup-content">
+                    
+                    <!-- SUP.1 Quality Assurance -->
+                    <div class="question">
+                        <h4>SUP.1.1 - Is quality assurance performed independently with defined criteria?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sup1_1" value="0" id="sup1_1_0">
+                                <label for="sup1_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup1_1" value="1" id="sup1_1_1">
+                                <label for="sup1_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup1_1" value="2" id="sup1_1_2">
+                                <label for="sup1_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup1_1" value="3" id="sup1_1_3">
+                                <label for="sup1_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUP.8 Configuration Management -->
+                    <div class="question">
+                        <h4>SUP.8.1 - Are configuration items identified and controlled with established baselines?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sup8_1" value="0" id="sup8_1_0">
+                                <label for="sup8_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup8_1" value="1" id="sup8_1_1">
+                                <label for="sup8_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup8_1" value="2" id="sup8_1_2">
+                                <label for="sup8_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup8_1" value="3" id="sup8_1_3">
+                                <label for="sup8_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUP.9 Problem Resolution Management -->
+                    <div class="question">
+                        <h4>SUP.9.1 - Are problems identified, recorded, analyzed and tracked to closure?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sup9_1" value="0" id="sup9_1_0">
+                                <label for="sup9_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup9_1" value="1" id="sup9_1_1">
+                                <label for="sup9_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup9_1" value="2" id="sup9_1_2">
+                                <label for="sup9_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup9_1" value="3" id="sup9_1_3">
+                                <label for="sup9_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUP.10 Change Request Management -->
+                    <div class="question">
+                        <h4>SUP.10.1 - Are change requests recorded, analyzed, approved and tracked?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="sup10_1" value="0" id="sup10_1_0">
+                                <label for="sup10_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup10_1" value="1" id="sup10_1_1">
+                                <label for="sup10_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup10_1" value="2" id="sup10_1_2">
+                                <label for="sup10_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="sup10_1" value="3" id="sup10_1_3">
+                                <label for="sup10_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Validation Process Group -->
+            <div class="process-group">
+                <div class="process-header" onclick="toggleProcess('val')">
+                    <h2>VAL - Validation Processes</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="process-content" id="val-content">
+                    
+                    <!-- VAL.1 Validation -->
+                    <div class="question">
+                        <h4>VAL.1.1 - Are validation measures specified and selected for the navigation system?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="val1_1" value="0" id="val1_1_0">
+                                <label for="val1_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="val1_1" value="1" id="val1_1_1">
+                                <label for="val1_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="val1_1" value="2" id="val1_1_2">
+                                <label for="val1_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="val1_1" value="3" id="val1_1_3">
+                                <label for="val1_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>VAL.1.2 - Is the navigation product validated in its operational target environment?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="val1_2" value="0" id="val1_2_0">
+                                <label for="val1_2_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="val1_2" value="1" id="val1_2_1">
+                                <label for="val1_2_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="val1_2" value="2" id="val1_2_2">
+                                <label for="val1_2_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="val1_2" value="3" id="val1_2_3">
+                                <label for="val1_2_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supply Process Group -->
+            <div class="process-group">
+                <div class="process-header" onclick="toggleProcess('spl')">
+                    <h2>SPL - Supply Processes</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="process-content" id="spl-content">
+                    
+                    <!-- SPL.2 Product Release -->
+                    <div class="question">
+                        <h4>SPL.2.1 - Is the functional content and release criteria for navigation products defined?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_1" value="0" id="spl2_1_0">
+                                <label for="spl2_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_1" value="1" id="spl2_1_1">
+                                <label for="spl2_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_1" value="2" id="spl2_1_2">
+                                <label for="spl2_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_1" value="3" id="spl2_1_3">
+                                <label for="spl2_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>SPL.2.2 - Are release packages built from configured items with unique identification?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_2" value="0" id="spl2_2_0">
+                                <label for="spl2_2_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_2" value="1" id="spl2_2_1">
+                                <label for="spl2_2_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_2" value="2" id="spl2_2_2">
+                                <label for="spl2_2_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="spl2_2" value="3" id="spl2_2_3">
+                                <label for="spl2_2_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Improvement Group -->
+            <div class="process-group">
+                <div class="process-header" onclick="toggleProcess('pim')">
+                    <h2>PIM - Process Improvement</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="process-content" id="pim-content">
+                    
+                    <!-- PIM.3 Process Improvement -->
+                    <div class="question">
+                        <h4>PIM.3.1 - Is commitment established to provide resources for improvement measures?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_1" value="0" id="pim3_1_0">
+                                <label for="pim3_1_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_1" value="1" id="pim3_1_1">
+                                <label for="pim3_1_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_1" value="2" id="pim3_1_2">
+                                <label for="pim3_1_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_1" value="3" id="pim3_1_3">
+                                <label for="pim3_1_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h4>PIM.3.2 - Are improvement opportunities identified and process improvement goals established?</h4>
+                        <div class="rating-options">
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_2" value="0" id="pim3_2_0">
+                                <label for="pim3_2_0">N - Not Achieved</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_2" value="1" id="pim3_2_1">
+                                <label for="pim3_2_1">P - Partially</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_2" value="2" id="pim3_2_2">
+                                <label for="pim3_2_2">L - Largely</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="pim3_2" value="3" id="pim3_2_3">
+                                <label for="pim3_2_3">F - Fully</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="calculateScores()">📊 Calculate Assessment Results</button>
+            <button class="btn btn-secondary" onclick="resetAssessment()">🔄 Reset Assessment</button>
+            <button class="btn" onclick="exportResults()">💾 Export Results</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay" style="display: none;">
+            <h3>🎯 Assessment Results</h3>
+            <div class="score-item">
+                <span>System Engineering (SYS)</span>
+                <span class="score-value" id="sysScore">-</span>
+            </div>
+            <div class="score-item">
+                <span>Software Engineering (SWE)</span>
+                <span class="score-value" id="sweScore">-</span>
+            </div>
+            <div class="score-item">
+                <span>Management (MAN)</span>
+                <span class="score-value" id="manScore">-</span>
+            </div>
+            <div class="score-item">
+                <span>Supporting Processes (SUP)</span>
+                <span class="score-value" id="supScore">-</span>
+            </div>
+            <div class="score-item">
+                <span>Validation (VAL)</span>
+                <span class="score-value" id="valScore">-</span>
+            </div>
+            <div class="score-item">
+                <span>Supply (SPL)</span>
+                <span class="score-value" id="splScore">-</span>
+            </div>
+            <div class="score-item">
+                <span>Process Improvement (PIM)</span>
+                <span class="score-value" id="pimScore">-</span>
+            </div>
+            <div class="score-item">
+                <span>Overall ASPICE Maturity Level</span>
+                <span class="score-value" id="overallScore">-</span>
+            </div>
+            
+            <div id="recommendations" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <h4>📋 Recommendations</h4>
+                <div id="recommendationText"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle process sections
+        function toggleProcess(processId) {
+            const content = document.getElementById(processId + '-content');
+            const header = content.previousElementSibling;
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                header.classList.remove('active');
+            } else {
+                content.classList.add('active');
+                header.classList.add('active');
+            }
+            
+            updateProgress();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const allRadios = document.querySelectorAll('input[type="radio"]');
+            const answeredGroups = new Set();
+            
+            allRadios.forEach(radio => {
+                if (radio.checked) {
+                    answeredGroups.add(radio.name);
+                }
+            });
+            
+            const totalQuestions = new Set();
+            allRadios.forEach(radio => {
+                totalQuestions.add(radio.name);
+            });
+            
+            const progress = (answeredGroups.size / totalQuestions.size) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('overallProgress').textContent = `Progress: ${Math.round(progress)}%`;
+        }
+
+        // Add event listeners to all radio buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const allRadios = document.querySelectorAll('input[type="radio"]');
+            allRadios.forEach(radio => {
+                radio.addEventListener('change', updateProgress);
+            });
+        });
+
+        // Calculate scores for each process group
+        function calculateScores() {
+            const processGroups = {
+                'sys': ['sys1_1', 'sys1_2', 'sys2_1', 'sys2_2', 'sys3_1', 'sys3_2'],
+                'swe': ['swe1_1', 'swe2_1', 'swe3_1', 'swe4_1', 'swe5_1', 'swe6_1'],
+                'man': ['man3_1', 'man3_2', 'man5_1', 'man6_1'],
+                'sup': ['sup1_1', 'sup8_1', 'sup9_1', 'sup10_1'],
+                'val': ['val1_1', 'val1_2'],
+                'spl': ['spl2_1', 'spl2_2'],
+                'pim': ['pim3_1', 'pim3_2']
+            };
+
+            const scores = {};
+            let totalScore = 0;
+            let totalQuestions = 0;
+
+            for (const [group, questions] of Object.entries(processGroups)) {
+                let groupScore = 0;
+                let answeredQuestions = 0;
+
+                questions.forEach(questionName => {
+                    const selectedRadio = document.querySelector(`input[name="${questionName}"]:checked`);
+                    if (selectedRadio) {
+                        groupScore += parseInt(selectedRadio.value);
+                        answeredQuestions++;
+                    }
+                });
+
+                if (answeredQuestions > 0) {
+                    const averageScore = (groupScore / answeredQuestions / 3) * 100; // Convert to percentage
+                    scores[group] = Math.round(averageScore);
+                    totalScore += groupScore;
+                    totalQuestions += answeredQuestions;
+                } else {
+                    scores[group] = 0;
+                }
+            }
+
+            // Calculate overall maturity level
+            const overallPercentage = totalQuestions > 0 ? (totalScore / (totalQuestions * 3)) * 100 : 0;
+            const maturityLevel = getMaturityLevel(overallPercentage);
+
+            // Display scores
+            document.getElementById('sysScore').textContent = scores.sys + '%';
+            document.getElementById('sweScore').textContent = scores.swe + '%';
+            document.getElementById('manScore').textContent = scores.man + '%';
+            document.getElementById('supScore').textContent = scores.sup + '%';
+            document.getElementById('valScore').textContent = scores.val + '%';
+            document.getElementById('splScore').textContent = scores.spl + '%';
+            document.getElementById('pimScore').textContent = scores.pim + '%';
+            
+            const overallScoreElement = document.getElementById('overallScore');
+            overallScoreElement.innerHTML = `${Math.round(overallPercentage)}% <span class="maturity-level level-${maturityLevel}">Level ${maturityLevel}</span>`;
+
+            // Show recommendations
+            showRecommendations(scores, maturityLevel);
+
+            // Show score display
+            document.getElementById('scoreDisplay').style.display = 'block';
+            document.getElementById('scoreDisplay').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Determine maturity level based on percentage
+        function getMaturityLevel(percentage) {
+            if (percentage < 15) return 0;
+            if (percentage < 50) return 1;
+            if (percentage < 85) return 2;
+            if (percentage < 95) return 3;
+            if (percentage < 98) return 4;
+            return 5;
+        }
+
+        // Show recommendations based on scores
+        function showRecommendations(scores, maturityLevel) {
+            let recommendations = [];
+
+            // General maturity recommendations
+            switch(maturityLevel) {
+                case 0:
+                    recommendations.push("🚨 <strong>Critical:</strong> Fundamental processes are not implemented. Immediate action required to establish basic process capabilities.");
+                    break;
+                case 1:
+                    recommendations.push("⚠️ <strong>Basic Level:</strong> Focus on establishing managed processes with proper planning and monitoring.");
+                    break;
+                case 2:
+                    recommendations.push("📈 <strong>Managed Level:</strong> Work on standardizing processes and establishing defined procedures.");
+                    break;
+                case 3:
+                    recommendations.push("✅ <strong>Established Level:</strong> Consider implementing quantitative management and predictable processes.");
+                    break;
+                case 4:
+                    recommendations.push("🎯 <strong>Predictable Level:</strong> Focus on continuous innovation and optimization.");
+                    break;
+                case 5:
+                    recommendations.push("🏆 <strong>Innovating Level:</strong> Excellent! Maintain current practices and share best practices.");
+                    break;
+            }
+
+            // Specific process recommendations
+            if (scores.sys < 70) {
+                recommendations.push("🔧 <strong>System Engineering:</strong> Improve requirements elicitation and system architecture definition for navigation systems.");
+            }
+            if (scores.swe < 70) {
+                recommendations.push("💻 <strong>Software Engineering:</strong> Strengthen software development practices, especially for navigation algorithms and user interface components.");
+            }
+            if (scores.man < 70) {
+                recommendations.push("📊 <strong>Management:</strong> Enhance project management, risk management, and measurement practices.");
+            }
+            if (scores.sup < 70) {
+                recommendations.push("🛠️ <strong>Supporting Processes:</strong> Improve quality assurance, configuration management, and problem resolution.");
+            }
+            if (scores.val < 70) {
+                recommendations.push("🧪 <strong>Validation:</strong> Strengthen validation processes for real-world navigation scenarios and user acceptance testing.");
+            }
+
+            // Navigation-specific recommendations
+            recommendations.push("🗺️ <strong>Navigation-Specific:</strong> Ensure GPS accuracy validation, map data quality assurance, and real-time traffic integration testing.");
+            recommendations.push("📱 <strong>User Experience:</strong> Focus on user interface usability testing and accessibility compliance for navigation systems.");
+
+            document.getElementById('recommendationText').innerHTML = recommendations.join('<br><br>');
+        }
+
+        // Reset assessment
+        function resetAssessment() {
+            if (confirm('Are you sure you want to reset the entire assessment?')) {
+                const allRadios = document.querySelectorAll('input[type="radio"]');
+                allRadios.forEach(radio => {
+                    radio.checked = false;
+                });
+                
+                document.getElementById('scoreDisplay').style.display = 'none';
+                updateProgress();
+                
+                // Close all process sections
+                const allContents = document.querySelectorAll('.process-content');
+                const allHeaders = document.querySelectorAll('.process-header');
+                allContents.forEach(content => content.classList.remove('active'));
+                allHeaders.forEach(header => header.classList.remove('active'));
+            }
+        }
+
+        // Export results
+        function exportResults() {
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            if (scoreDisplay.style.display === 'none') {
+                alert('Please calculate assessment results first.');
+                return;
+            }
+
+            const results = {
+                timestamp: new Date().toISOString(),
+                company: 'Navigation Systems Company',
+                assessmentType: 'Automotive SPICE v4.0',
+                scores: {
+                    sys: document.getElementById('sysScore').textContent,
+                    swe: document.getElementById('sweScore').textContent,
+                    man: document.getElementById('manScore').textContent,
+                    sup: document.getElementById('supScore').textContent,
+                    val: document.getElementById('valScore').textContent,
+                    spl: document.getElementById('splScore').textContent,
+                    pim: document.getElementById('pimScore').textContent,
+                    overall: document.getElementById('overallScore').textContent
+                },
+                recommendations: document.getElementById('recommendationText').innerHTML
+            };
+
+            const dataStr = JSON.stringify(results, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `ASPICE_Assessment_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Initialize progress on page load
+        updateProgress();
+    </script>
+</body>
+</html>
