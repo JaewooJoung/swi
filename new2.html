@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O.P.E.N. System Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --white: #ffffff;
+            --outstanding: #90EE90;
+            --passing: #87CEEB;
+            --emerging: #FFE4B5;
+            --notshown: #D3D3D3;
+            --red-highlight: #FF0000;
+            --yellow-highlight: #FFFF00;
+            --green-highlight: #90EE90;
+            --blue-highlight: #87CEEB;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .header-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .info-item label {
+            min-width: 150px;
+        }
+
+        .info-item input {
+            border: none;
+            border-bottom: 1px solid #000;
+            padding: 2px 5px;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .legend-box {
+            border: 2px solid #000;
+            padding: 10px;
+        }
+
+        .legend-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+        }
+
+        .legend-item {
+            display: grid;
+            grid-template-columns: 150px 40px;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .legend-item span:first-child {
+            padding: 2px 5px;
+        }
+
+        .legend-item span:last-child {
+            text-align: center;
+        }
+
+        .legend-outstanding {
+            background-color: var(--outstanding);
+        }
+
+        .legend-passing {
+            background-color: var(--passing);
+        }
+
+        .legend-emerging {
+            background-color: var(--emerging);
+        }
+
+        .legend-notshown {
+            background-color: var(--notshown);
+        }
+
+        .stopping-parameter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .red-box {
+            width: 100px;
+            height: 30px;
+            background-color: var(--red-highlight);
+            border: 1px solid #000;
+        }
+
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .main-table th {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+
+        .main-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .main-table .left-align {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .category-row {
+            font-weight: bold;
+        }
+
+        .category-row td:first-child {
+            padding-left: 5px;
+        }
+
+        .work-products {
+            background-color: var(--green-highlight);
+        }
+
+        .sw-project-management {
+            background-color: var(--blue-highlight);
+        }
+
+        .sw-quality {
+            background-color: #FFB6C1;
+        }
+
+        .development-process {
+            background-color: #DDA0DD;
+        }
+
+        .change-request {
+            background-color: #F0E68C;
+        }
+
+        .communication {
+            background-color: #98FB98;
+        }
+
+        .configuration-management {
+            background-color: #87CEEB;
+        }
+
+        .sub-contracting {
+            background-color: #F4A460;
+        }
+
+        .data-management {
+            background-color: #D8BFD8;
+        }
+
+        .release-delivery {
+            background-color: #B0C4DE;
+        }
+
+        .sub-item-row td:first-child {
+            padding-left: 30px;
+        }
+
+        .sub-sub-item-row td:first-child {
+            padding-left: 50px;
+        }
+
+        .sub-sub-sub-item-row td:first-child {
+            padding-left: 70px;
+        }
+
+        .sub-item-number {
+            display: inline-block;
+            min-width: 40px;
+        }
+
+        .decision-select {
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+
+        .applicable-input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+
+        .percentage-cell {
+            font-weight: bold;
+        }
+
+        .evidence-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+
+        .gap-select {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+
+        .check-action {
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .category-headers {
+            background-color: #e0e0e0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: 1px solid #000;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #f0f0f0;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+        }
+
+        .summary-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0f0f0;
+            border: 2px solid #000;
+            text-align: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .summary-item {
+            padding: 10px;
+            background: white;
+            border: 1px solid #ccc;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .summary-label {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+            .action-buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>O.P.E.N. System Analysis</h1>
+        
+        <div class="header-grid">
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Supplier code [Blank]</label>
+                    <input type="text" id="supplier-code">
+                </div>
+                <div class="info-item">
+                    <label>Supplier name [Blank]</label>
+                    <input type="text" id="supplier-name">
+                </div>
+                <div class="info-item">
+                    <label>Type of Software [Blank]</label>
+                    <input type="text" id="software-type">
+                </div>
+                <div class="info-item">
+                    <label>Audited by [Jaewoo Joung]</label>
+                    <input type="text" id="audited-by" value="Jaewoo Joung">
+                </div>
+                <div class="info-item">
+                    <label>Team members [Blank]</label>
+                    <input type="text" id="team-members">
+                </div>
+                <div class="info-item">
+                    <label>Comment [Blank]</label>
+                    <input type="text" id="comment">
+                </div>
+            </div>
+            
+            <div class="legend-box">
+                <div class="legend-title">Legend</div>
+                <div class="legend-item">
+                    <span class="legend-outstanding">Outstanding</span>
+                    <span>3</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-passing">Passing</span>
+                    <span>2</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-emerging">Emerging</span>
+                    <span>1</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-notshown">Not shown</span>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stopping-parameter">
+            <div class="red-box"></div>
+            <span>Stopping parameter</span>
+        </div>
+
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th style="width: 55%;">Criteria</th>
+                    <th style="width: 10%;">Decision</th>
+                    <th style="width: 20%;">Evidence</th>
+                    <th style="width: 8%;">Gap</th>
+                    <th style="width: 7%;">Check if action<br>required</th>
+                </tr>
+            </thead>
+            <tbody id="criteria-body">
+                <!-- Content will be dynamically generated -->
+            </tbody>
+        </table>
+
+        <div class="summary-section">
+            <h2>Analysis Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-value" id="total-score">0</div>
+                    <div class="summary-label">Total Score</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="max-score">0</div>
+                    <div class="summary-label">Maximum Possible</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="overall-percentage">0%</div>
+                    <div class="summary-label">Overall Percentage</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="gaps-count">0</div>
+                    <div class="summary-label">Gaps Identified</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveAnalysis()">Save Analysis</button>
+            <button class="btn" onclick="exportToExcel()">Export to Excel</button>
+            <button class="btn" onclick="printReport()">Print Report</button>
+            <button class="btn" onclick="resetForm()">Reset Form</button>
+        </div>
+    </div>
+
+    <script>
+        // Complete criteria data structure
+        const criteriaData = [
+            {
+                id: '1',
+                title: 'Work products',
+                bgColor: 'work-products',
+                subItems: [
+                    { id: '1.1', text: 'Document structure evaluation (SPICE for QM project)' },
+                    { id: '1.2', text: 'Document structure evaluation (ISO 26262 additional to 1.1)/ISO21434' }
+                ]
+            },
+            {
+                id: '2',
+                title: 'SW project Management',
+                bgColor: 'sw-project-management',
+                subItems: [
+                    { id: '2.1', text: 'SW development plan (may be included in project plan)' },
+                    { id: '2.2', text: 'SW development schedule' },
+                    { id: '2.3', text: 'Risk management plan' },
+                    { id: '2.4', text: 'Risk management list' },
+                    { id: '2.5', text: 'SW functional safety/security management (Safety plan)/(Security plan)' }
+                ]
+            },
+            {
+                id: '3',
+                title: 'SW Quality assurance & Functional Safety/Cyber Security',
+                bgColor: 'sw-quality',
+                subItems: [
+                    { id: '3.1', text: 'SW Quality Plan' },
+                    { id: '3.2', text: 'Functional safety assessment/Cybersecurity assessment' },
+                    { id: '3.3', text: 'Skill and Training matrix' },
+                    { id: '3.4', text: 'Responsibility matrix' }
+                ]
+            },
+            {
+                id: '4',
+                title: 'Development Process',
+                bgColor: 'development-process',
+                subItems: [
+                    { id: '4.1', text: 'Process capability ASPICE' },
+                    { id: '4.2', text: 'Process capability ISO 26262 (based on Functional Safety audit)/ISO21434 audit' },
+                    { 
+                        id: '4.3', 
+                        text: 'Minimum Requirements on SW design',
+                        subItems: [
+                            {
+                                id: '4.3.1',
+                                text: 'Requirements Management (summary)',
+                                subItems: [
+                                    { id: '4.3.1.1', text: 'System Requirements management' },
+                                    { id: '4.3.1.2', text: 'SW Requirement management' }
+                                ]
+                            },
+                            {
+                                id: '4.3.2',
+                                text: 'SW design (summary)',
+                                subItems: [
+                                    { id: '4.3.2.1', text: 'SW Architectural design' },
+                                    { id: '4.3.2.2', text: 'SW Detailed design specification' },
+                                    { id: '4.3.2.3', text: 'Coding guidelines' },
+                                    { id: '4.3.2.4', text: 'Code review' },
+                                    { id: '4.3.2.5', text: 'Misra compliance report' },
+                                    { id: '4.3.2.6', text: 'Static code Analysis (SW Metrics)' },
+                                    { id: '4.3.2.7', text: 'Worst case analysis report' },
+                                    { id: '4.3.2.8', text: 'SW integration' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: '4.4',
+                        text: 'Minimum Requirements on SW verification',
+                        subItems: [
+                            { id: '4.4.1', text: 'SW Test plan' },
+                            { id: '4.4.2', text: 'SW Test cases and test reports' },
+                            { id: '4.4.3', text: 'Review process and evidences of reviews' }
+                        ]
+                    },
+                    { id: '4.5', text: 'Bilateral Requirement Traceability' }
+                ]
+            },
+            {
+                id: '5',
+                title: 'Change request process',
+                bgColor: 'change-request',
+                subItems: [
+                    { id: '5.1', text: 'Change request process (internal and customer)' },
+                    { id: '5.2', text: 'Problem tracking and reporting' }
+                ]
+            },
+            {
+                id: '6',
+                title: 'Communication and progress reporting',
+                bgColor: 'communication',
+                subItems: [
+                    { id: '6.1', text: 'Communication plan' },
+                    { 
+                        id: '6.2', 
+                        text: 'Metrics reporting',
+                        subItems: [
+                            { id: '6.2.1', text: 'Current and projected microprocessors load' },
+                            { id: '6.2.2', text: 'Current and projected RAM usage' },
+                            { id: '6.2.3', text: 'Current and projected ROM usage' },
+                            { id: '6.2.4', text: 'Current and projected EEPROM usage' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: '7',
+                title: 'Configuration management',
+                bgColor: 'configuration-management',
+                subItems: [
+                    { id: '7.1', text: 'Configuration management plan' },
+                    { id: '7.2', text: 'Configuration management items list' },
+                    { id: '7.3', text: 'Configuration management tool' }
+                ]
+            },
+            {
+                id: '8',
+                title: 'Sub contracting',
+                bgColor: 'sub-contracting',
+                subItems: [
+                    { id: '8.1', text: 'Contract and Quality management NA' }
+                ]
+            },
+            {
+                id: '9',
+                title: 'Data management',
+                bgColor: 'data-management',
+                subItems: [
+                    { id: '9.1', text: 'Data Management' }
+                ]
+            },
+            {
+                id: '10',
+                title: 'Release, Delivery, Acceptance and Maintenance',
+                bgColor: 'release-delivery',
+                subItems: [
+                    {
+                        id: '10.1',
+                        text: 'SW Release',
+                        subItems: [
+                            { id: '10.1.1', text: 'Release note' },
+                            { id: '10.1.2', text: 'ISO 26262/ISO21434 Release documentation' },
+                            { id: '10.1.3', text: 'SW APQP checklists' },
+                            { id: '10.1.4', text: 'SW PPAP (PSW or SSW)' }
+                        ]
+                    },
+                    {
+                        id: '10.2',
+                        text: 'Deliveries, Post Morten and Maintenance',
+                        subItems: [
+                            { id: '10.2.1', text: 'Delivery reviews' },
+                            { id: '10.2.2', text: 'Lessons learned or Post mortem review' },
+                            { id: '10.2.3', text: 'Maintenance plan' }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Helper function to count all sub-items
+        function countSubItems(item) {
+            let count = 0;
+            if (!item.subItems || item.subItems.length === 0) {
+                return 1;
+            }
+            item.subItems.forEach(subItem => {
+                count += countSubItems(subItem);
+            });
+            return count;
+        }
+
+        // Create table rows for sub-items recursively
+        function createSubItemRows(subItems, parentId, level = 1) {
+            const rows = [];
+            subItems.forEach(subItem => {
+                const rowClass = level === 1 ? 'sub-item-row' : level === 2 ? 'sub-sub-item-row' : 'sub-sub-sub-item-row';
+                const subRow = document.createElement('tr');
+                subRow.className = rowClass;
+                
+                const subItemCell = document.createElement('td');
+                subItemCell.className = 'left-align';
+                subItemCell.innerHTML = `<span class="sub-item-number">${subItem.id}</span>${subItem.text}`;
+                subRow.appendChild(subItemCell);
+                
+                if (!subItem.subItems || subItem.subItems.length === 0) {
+                    // Leaf node - add decision select
+                    const subDecisionCell = document.createElement('td');
+                    subDecisionCell.innerHTML = `
+                        <select class="decision-select" id="decision-${subItem.id}" onchange="updateCategory('${parentId}')">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    `;
+                    subRow.appendChild(subDecisionCell);
+                } else {
+                    // Non-leaf node - empty cell
+                    subRow.appendChild(document.createElement('td'));
+                }
+                
+                // Empty cells for sub-items
+                for (let i = 0; i < 3; i++) {
+                    subRow.appendChild(document.createElement('td'));
+                }
+                
+                rows.push(subRow);
+                
+                // Recursively add sub-sub-items
+                if (subItem.subItems && subItem.subItems.length > 0) {
+                    const subSubRows = createSubItemRows(subItem.subItems, parentId, level + 1);
+                    rows.push(...subSubRows);
+                }
+            });
+            return rows;
+        }
+
+        // Initialize the table
+        function initializeTable() {
+            const tbody = document.getElementById('criteria-body');
+            tbody.innerHTML = '';
+            
+            criteriaData.forEach(category => {
+                // Create category row
+                const categoryRow = document.createElement('tr');
+                categoryRow.className = 'category-row';
+                
+                const categoryCell = document.createElement('td');
+                categoryCell.className = `left-align ${category.bgColor}`;
+                categoryCell.innerHTML = `<strong>${category.id} ${category.title}</strong>`;
+                categoryRow.appendChild(categoryCell);
+                
+                // Decision total cell
+                const decisionCell = document.createElement('td');
+                decisionCell.id = `decision-total-${category.id}`;
+                decisionCell.textContent = '0';
+                categoryRow.appendChild(decisionCell);
+                
+                // Hidden inputs for applicable and percentage
+                const hiddenApplicable = document.createElement('input');
+                hiddenApplicable.type = 'hidden';
+                hiddenApplicable.id = `applicable-${category.id}`;
+                hiddenApplicable.value = countSubItems(category) * 3;
+                document.body.appendChild(hiddenApplicable);
+                
+                const hiddenPercentage = document.createElement('span');
+                hiddenPercentage.id = `percentage-${category.id}`;
+                hiddenPercentage.style.display = 'none';
+                hiddenPercentage.textContent = '0%';
+                document.body.appendChild(hiddenPercentage);
+                
+                // Evidence cell
+                const evidenceCell = document.createElement('td');
+                evidenceCell.innerHTML = `<input type="text" class="evidence-input" id="evidence-${category.id}" placeholder="Enter evidence">`;
+                categoryRow.appendChild(evidenceCell);
+                
+                // Gap cell
+                const gapCell = document.createElement('td');
+                gapCell.innerHTML = `<select class="gap-select" id="gap-${category.id}"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select>`;
+                categoryRow.appendChild(gapCell);
+                
+                // Check action cell
+                const checkCell = document.createElement('td');
+                checkCell.className = 'check-action';
+                checkCell.id = `check-${category.id}`;
+                categoryRow.appendChild(checkCell);
+                
+                tbody.appendChild(categoryRow);
+                
+                // Create sub-item rows
+                const subRows = createSubItemRows(category.subItems, category.id);
+                subRows.forEach(row => tbody.appendChild(row));
+            });
+            
+            updateSummary();
+        }
+
+        // Get all decision inputs for a category
+        function getAllDecisionInputs(category) {
+            const inputs = [];
+            
+            function collectInputs(items) {
+                items.forEach(item => {
+                    if (!item.subItems || item.subItems.length === 0) {
+                        const input = document.getElementById(`decision-${item.id}`);
+                        if (input) {
+                            inputs.push(input);
+                        }
+                    } else {
+                        collectInputs(item.subItems);
+                    }
+                });
+            }
+            
+            collectInputs(category.subItems);
+            return inputs;
+        }
+
+        // Update category calculations
+        function updateCategory(categoryId) {
+            const category = criteriaData.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            // Get all decision inputs for this category
+            const inputs = getAllDecisionInputs(category);
+            
+            // Calculate total decision points
+            let totalDecision = 0;
+            inputs.forEach(input => {
+                totalDecision += parseInt(input.value) || 0;
+            });
+            
+            // Update decision total
+            document.getElementById(`decision-total-${categoryId}`).textContent = totalDecision;
+            
+            // Get applicable points (from hidden input)
+            const applicableInput = document.getElementById(`applicable-${categoryId}`);
+            const applicable = parseInt(applicableInput.value) || 0;
+            
+            // Calculate percentage
+            let percentage = 0;
+            if (applicable > 0) {
+                percentage = Math.round((totalDecision / applicable) * 100);
+            }
+            
+            // Update percentage (hidden)
+            const percentageElement = document.getElementById(`percentage-${categoryId}`);
+            percentageElement.textContent = `${percentage}%`;
+            
+            // Update gap automatically
+            const gapSelect = document.getElementById(`gap-${categoryId}`);
+            if (totalDecision < applicable) {
+                gapSelect.value = 'Yes';
+            } else {
+                gapSelect.value = 'No';
+            }
+            
+            // Update check action
+            const checkCell = document.getElementById(`check-${categoryId}`);
+            if (gapSelect.value === 'Yes' && percentage < 70) {
+                checkCell.textContent = 'X';
+            } else {
+                checkCell.textContent = '';
+            }
+            
+            updateSummary();
+        }
+
+        // Update summary
+        function updateSummary() {
+            let totalScore = 0;
+            let maxScore = 0;
+            let gapsCount = 0;
+            
+            criteriaData.forEach(category => {
+                const decisionTotal = parseInt(document.getElementById(`decision-total-${category.id}`).textContent) || 0;
+                const applicable = parseInt(document.getElementById(`applicable-${category.id}`).value) || 0;
+                const gap = document.getElementById(`gap-${category.id}`).value;
+                
+                totalScore += decisionTotal;
+                maxScore += applicable;
+                
+                if (gap === 'Yes') {
+                    gapsCount++;
+                }
+            });
+            
+            document.getElementById('total-score').textContent = totalScore;
+            document.getElementById('max-score').textContent = maxScore;
+            document.getElementById('gaps-count').textContent = gapsCount;
+            
+            const overallPercentage = maxScore > 0 ? Math.round((totalScore / maxScore) * 100) : 0;
+            document.getElementById('overall-percentage').textContent = `${overallPercentage}%`;
+        }
+
+        // Save analysis
+        function saveAnalysis() {
+            const analysisData = {
+                supplierCode: document.getElementById('supplier-code').value,
+                supplierName: document.getElementById('supplier-name').value,
+                softwareType: document.getElementById('software-type').value,
+                auditedBy: document.getElementById('audited-by').value,
+                teamMembers: document.getElementById('team-members').value,
+                comment: document.getElementById('comment').value,
+                categories: []
+            };
+            
+            criteriaData.forEach(category => {
+                const categoryData = {
+                    id: category.id,
+                    title: category.title,
+                    applicable: document.getElementById(`applicable-${category.id}`).value,
+                    evidence: document.getElementById(`evidence-${category.id}`).value,
+                    gap: document.getElementById(`gap-${category.id}`).value,
+                    decisions: {}
+                };
+                
+                // Save all decision values
+                const inputs = getAllDecisionInputs(category);
+                inputs.forEach(input => {
+                    const itemId = input.id.replace('decision-', '');
+                    categoryData.decisions[itemId] = input.value;
+                });
+                
+                analysisData.categories.push(categoryData);
+            });
+            
+            localStorage.setItem('openAnalysis', JSON.stringify(analysisData));
+            alert('Analysis saved successfully!');
+        }
+
+        // Export to Excel
+        function exportToExcel() {
+            let csvContent = "O.P.E.N. System Analysis\n\n";
+            csvContent += `Supplier code:,${document.getElementById('supplier-code').value}\n`;
+            csvContent += `Supplier name:,${document.getElementById('supplier-name').value}\n`;
+            csvContent += `Type of Software:,${document.getElementById('software-type').value}\n`;
+            csvContent += `Audited by:,${document.getElementById('audited-by').value}\n`;
+            csvContent += `Team members:,${document.getElementById('team-members').value}\n`;
+            csvContent += `Comment:,${document.getElementById('comment').value}\n\n`;
+            
+            csvContent += "Category,Sub-item,Description,Decision,Applicable,Percentage,Evidence,Gap,Action Required\n";
+            
+            criteriaData.forEach(category => {
+                const decision = document.getElementById(`decision-total-${category.id}`).textContent;
+                const applicable = document.getElementById(`applicable-${category.id}`).value;
+                const percentage = document.getElementById(`percentage-${category.id}`).textContent;
+                const evidence = document.getElementById(`evidence-${category.id}`).value;
+                const gap = document.getElementById(`gap-${category.id}`).value;
+                const action = document.getElementById(`check-${category.id}`).textContent;
+                
+                csvContent += `"${category.id} ${category.title}","","",${decision},${applicable},${percentage},"${evidence}",${gap},${action}\n`;
+                
+                // Export sub-items recursively
+                function exportSubItems(items, prefix = '') {
+                    items.forEach(item => {
+                        if (!item.subItems || item.subItems.length === 0) {
+                            const subDecision = document.getElementById(`decision-${item.id}`)?.value || '';
+                            csvContent += `"",${prefix}${item.id},"${item.text}",${subDecision},,,,\n`;
+                        } else {
+                            csvContent += `"",${prefix}${item.id},"${item.text}",,,,,,\n`;
+                            exportSubItems(item.subItems, '  ');
+                        }
+                    });
+                }
+                
+                exportSubItems(category.subItems);
+            });
+            
+            // Download
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `OPEN_Analysis_${document.getElementById('supplier-name').value || 'Report'}_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // Print report
+        function printReport() {
+            window.print();
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset all data?')) {
+                document.getElementById('supplier-code').value = '';
+                document.getElementById('supplier-name').value = '';
+                document.getElementById('software-type').value = '';
+                document.getElementById('audited-by').value = 'Jaewoo Joung';
+                document.getElementById('team-members').value = '';
+                document.getElementById('comment').value = '';
+                
+                criteriaData.forEach(category => {
+                    const maxPoints = countSubItems(category) * 3;
+                    document.getElementById(`applicable-${category.id}`).value = maxPoints;
+                    document.getElementById(`evidence-${category.id}`).value = '';
+                    document.getElementById(`gap-${category.id}`).value = '';
+                    
+                    // Reset all decision selects
+                    const inputs = getAllDecisionInputs(category);
+                    inputs.forEach(input => {
+                        input.value = '0';
+                    });
+                    
+                    updateCategory(category.id);
+                });
+            }
+        }
+
+        // Load saved data
+        function loadSavedData() {
+            const saved = localStorage.getItem('openAnalysis');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    document.getElementById('supplier-code').value = data.supplierCode || '';
+                    document.getElementById('supplier-name').value = data.supplierName || '';
+                    document.getElementById('software-type').value = data.softwareType || '';
+                    document.getElementById('audited-by').value = data.auditedBy || 'Jaewoo Joung';
+                    document.getElementById('team-members').value = data.teamMembers || '';
+                    document.getElementById('comment').value = data.comment || '';
+                    
+                    if (data.categories) {
+                        data.categories.forEach(savedCategory => {
+                            const category = criteriaData.find(c => c.id === savedCategory.id);
+                            if (category) {
+                                const maxPoints = countSubItems(category) * 3;
+                                document.getElementById(`applicable-${category.id}`).value = savedCategory.applicable || maxPoints;
+                                document.getElementById(`evidence-${category.id}`).value = savedCategory.evidence || '';
+                                document.getElementById(`gap-${category.id}`).value = savedCategory.gap || '';
+                                
+                                // Load decision values
+                                if (savedCategory.decisions) {
+                                    Object.keys(savedCategory.decisions).forEach(itemId => {
+                                        const input = document.getElementById(`decision-${itemId}`);
+                                        if (input) {
+                                            input.value = savedCategory.decisions[itemId] || '0';
+                                        }
+                                    });
+                                }
+                                
+                                updateCategory(category.id);
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                }
+            }
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveAnalysis();
+            }
+            // Ctrl/Cmd + P to print
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                printReport();
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeTable();
+            loadSavedData();
+        });
+    </script>
+</body>
+</html>
