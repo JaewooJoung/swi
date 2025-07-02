@@ -182,24 +182,64 @@
             background-color: var(--blue-highlight);
         }
 
+        .sw-quality {
+            background-color: #FFB6C1;
+        }
+
+        .development-process {
+            background-color: #DDA0DD;
+        }
+
+        .change-request {
+            background-color: #F0E68C;
+        }
+
+        .communication {
+            background-color: #98FB98;
+        }
+
+        .configuration-management {
+            background-color: #87CEEB;
+        }
+
+        .sub-contracting {
+            background-color: #F4A460;
+        }
+
+        .data-management {
+            background-color: #D8BFD8;
+        }
+
+        .release-delivery {
+            background-color: #B0C4DE;
+        }
+
         .sub-item-row td:first-child {
             padding-left: 30px;
         }
 
-        .sub-item-number {
-            display: inline-block;
-            min-width: 30px;
+        .sub-sub-item-row td:first-child {
+            padding-left: 50px;
         }
 
-        .decision-input {
-            width: 50px;
+        .sub-sub-sub-item-row td:first-child {
+            padding-left: 70px;
+        }
+
+        .sub-item-number {
+            display: inline-block;
+            min-width: 40px;
+        }
+
+        .decision-select {
+            width: 60px;
             text-align: center;
             border: 1px solid #ccc;
             padding: 2px;
         }
 
         .applicable-input {
-            width: 50px;
+            width: 60px;
             text-align: center;
             border: 1px solid #ccc;
             padding: 2px;
@@ -259,6 +299,38 @@
 
         .btn-primary:hover {
             background: #45a049;
+        }
+
+        .summary-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0f0f0;
+            border: 2px solid #000;
+            text-align: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .summary-item {
+            padding: 10px;
+            background: white;
+            border: 1px solid #ccc;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .summary-label {
+            font-size: 14px;
+            margin-top: 5px;
         }
 
         @media print {
@@ -332,11 +404,11 @@
         <table class="main-table">
             <thead>
                 <tr>
-                    <th style="width: 40%;" rowspan="2">Criteria</th>
+                    <th style="width: 45%;" rowspan="2">Criteria</th>
                     <th style="width: 8%;">Decision</th>
                     <th style="width: 8%;">Applicable<br>points</th>
                     <th style="width: 8%;">Average<br>%</th>
-                    <th style="width: 20%;" rowspan="2">Evidence</th>
+                    <th style="width: 15%;" rowspan="2">Evidence</th>
                     <th style="width: 8%;" rowspan="2">Gap</th>
                     <th style="width: 8%;" rowspan="2">Check if action<br>required</th>
                 </tr>
@@ -351,6 +423,28 @@
             </tbody>
         </table>
 
+        <div class="summary-section">
+            <h2>Analysis Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-value" id="total-score">0</div>
+                    <div class="summary-label">Total Score</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="max-score">0</div>
+                    <div class="summary-label">Maximum Possible</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="overall-percentage">0%</div>
+                    <div class="summary-label">Overall Percentage</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="gaps-count">0</div>
+                    <div class="summary-label">Gaps Identified</div>
+                </div>
+            </div>
+        </div>
+
         <div class="action-buttons">
             <button class="btn btn-primary" onclick="saveAnalysis()">Save Analysis</button>
             <button class="btn" onclick="exportToExcel()">Export to Excel</button>
@@ -360,7 +454,7 @@
     </div>
 
     <script>
-        // Criteria data structure based on the image
+        // Complete criteria data structure
         const criteriaData = [
             {
                 id: '1',
@@ -377,57 +471,208 @@
                 bgColor: 'sw-project-management',
                 subItems: [
                     { id: '2.1', text: 'SW development plan (may be included in project plan)' },
-                    { id: '2.2', text: 'SW development schedule' }
+                    { id: '2.2', text: 'SW development schedule' },
+                    { id: '2.3', text: 'Risk management plan' },
+                    { id: '2.4', text: 'Risk management list' },
+                    { id: '2.5', text: 'SW functional safety/security management (Safety plan)/(Security plan)' }
                 ]
             },
             {
                 id: '3',
-                title: 'Requirements management',
-                bgColor: '',
+                title: 'SW Quality assurance & Functional Safety/Cyber Security',
+                bgColor: 'sw-quality',
                 subItems: [
-                    { id: '3.1', text: 'Requirements specification' },
-                    { id: '3.2', text: 'Requirements tracking' }
+                    { id: '3.1', text: 'SW Quality Plan' },
+                    { id: '3.2', text: 'Functional safety assessment/Cybersecurity assessment' },
+                    { id: '3.3', text: 'Skill and Training matrix' },
+                    { id: '3.4', text: 'Responsibility matrix' }
                 ]
             },
             {
                 id: '4',
-                title: 'Design and implementation',
-                bgColor: '',
+                title: 'Development Process',
+                bgColor: 'development-process',
                 subItems: [
-                    { id: '4.1', text: 'Design documentation' },
-                    { id: '4.2', text: 'Code reviews' },
-                    { id: '4.3', text: 'Coding standards' }
+                    { id: '4.1', text: 'Process capability ASPICE' },
+                    { id: '4.2', text: 'Process capability ISO 26262 (based on Functional Safety audit)/ISO21434 audit' },
+                    { 
+                        id: '4.3', 
+                        text: 'Minimum Requirements on SW design',
+                        subItems: [
+                            {
+                                id: '4.3.1',
+                                text: 'Requirements Management (summary)',
+                                subItems: [
+                                    { id: '4.3.1.1', text: 'System Requirements management' },
+                                    { id: '4.3.1.2', text: 'SW Requirement management' }
+                                ]
+                            },
+                            {
+                                id: '4.3.2',
+                                text: 'SW design (summary)',
+                                subItems: [
+                                    { id: '4.3.2.1', text: 'SW Architectural design' },
+                                    { id: '4.3.2.2', text: 'SW Detailed design specification' },
+                                    { id: '4.3.2.3', text: 'Coding guidelines' },
+                                    { id: '4.3.2.4', text: 'Code review' },
+                                    { id: '4.3.2.5', text: 'Misra compliance report' },
+                                    { id: '4.3.2.6', text: 'Static code Analysis (SW Metrics)' },
+                                    { id: '4.3.2.7', text: 'Worst case analysis report' },
+                                    { id: '4.3.2.8', text: 'SW integration' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: '4.4',
+                        text: 'Minimum Requirements on SW verification',
+                        subItems: [
+                            { id: '4.4.1', text: 'SW Test plan' },
+                            { id: '4.4.2', text: 'SW Test cases and test reports' },
+                            { id: '4.4.3', text: 'Review process and evidences of reviews' }
+                        ]
+                    },
+                    { id: '4.5', text: 'Bilateral Requirement Traceability' }
                 ]
             },
             {
                 id: '5',
-                title: 'Testing and validation',
-                bgColor: '',
+                title: 'Change request process',
+                bgColor: 'change-request',
                 subItems: [
-                    { id: '5.1', text: 'Test plan' },
-                    { id: '5.2', text: 'Test execution records' },
-                    { id: '5.3', text: 'Defect tracking' }
+                    { id: '5.1', text: 'Change request process (internal and customer)' },
+                    { id: '5.2', text: 'Problem tracking and reporting' }
                 ]
             },
             {
                 id: '6',
-                title: 'Configuration management',
-                bgColor: '',
+                title: 'Communication and progress reporting',
+                bgColor: 'communication',
                 subItems: [
-                    { id: '6.1', text: 'Version control' },
-                    { id: '6.2', text: 'Change management process' }
+                    { id: '6.1', text: 'Communication plan' },
+                    { 
+                        id: '6.2', 
+                        text: 'Metrics reporting',
+                        subItems: [
+                            { id: '6.2.1', text: 'Current and projected microprocessors load' },
+                            { id: '6.2.2', text: 'Current and projected RAM usage' },
+                            { id: '6.2.3', text: 'Current and projected ROM usage' },
+                            { id: '6.2.4', text: 'Current and projected EEPROM usage' }
+                        ]
+                    }
                 ]
             },
             {
                 id: '7',
-                title: 'Quality assurance',
-                bgColor: '',
+                title: 'Configuration management',
+                bgColor: 'configuration-management',
                 subItems: [
-                    { id: '7.1', text: 'QA processes' },
-                    { id: '7.2', text: 'Audit records' }
+                    { id: '7.1', text: 'Configuration management plan' },
+                    { id: '7.2', text: 'Configuration management items list' },
+                    { id: '7.3', text: 'Configuration management tool' }
+                ]
+            },
+            {
+                id: '8',
+                title: 'Sub contracting',
+                bgColor: 'sub-contracting',
+                subItems: [
+                    { id: '8.1', text: 'Contract and Quality management NA' }
+                ]
+            },
+            {
+                id: '9',
+                title: 'Data management',
+                bgColor: 'data-management',
+                subItems: [
+                    { id: '9.1', text: 'Data Management' }
+                ]
+            },
+            {
+                id: '10',
+                title: 'Release, Delivery, Acceptance and Maintenance',
+                bgColor: 'release-delivery',
+                subItems: [
+                    {
+                        id: '10.1',
+                        text: 'SW Release',
+                        subItems: [
+                            { id: '10.1.1', text: 'Release note' },
+                            { id: '10.1.2', text: 'ISO 26262/ISO21434 Release documentation' },
+                            { id: '10.1.3', text: 'SW APQP checklists' },
+                            { id: '10.1.4', text: 'SW PPAP (PSW or SSW)' }
+                        ]
+                    },
+                    {
+                        id: '10.2',
+                        text: 'Deliveries, Post Morten and Maintenance',
+                        subItems: [
+                            { id: '10.2.1', text: 'Delivery reviews' },
+                            { id: '10.2.2', text: 'Lessons learned or Post mortem review' },
+                            { id: '10.2.3', text: 'Maintenance plan' }
+                        ]
+                    }
                 ]
             }
         ];
+
+        // Helper function to count all sub-items
+        function countSubItems(item) {
+            let count = 0;
+            if (!item.subItems || item.subItems.length === 0) {
+                return 1;
+            }
+            item.subItems.forEach(subItem => {
+                count += countSubItems(subItem);
+            });
+            return count;
+        }
+
+        // Create table rows for sub-items recursively
+        function createSubItemRows(subItems, parentId, level = 1) {
+            const rows = [];
+            subItems.forEach(subItem => {
+                const rowClass = level === 1 ? 'sub-item-row' : level === 2 ? 'sub-sub-item-row' : 'sub-sub-sub-item-row';
+                const subRow = document.createElement('tr');
+                subRow.className = rowClass;
+                
+                const subItemCell = document.createElement('td');
+                subItemCell.className = 'left-align';
+                subItemCell.innerHTML = `<span class="sub-item-number">${subItem.id}</span>${subItem.text}`;
+                subRow.appendChild(subItemCell);
+                
+                if (!subItem.subItems || subItem.subItems.length === 0) {
+                    // Leaf node - add decision select
+                    const subDecisionCell = document.createElement('td');
+                    subDecisionCell.innerHTML = `
+                        <select class="decision-select" id="decision-${subItem.id}" onchange="updateCategory('${parentId}')">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    `;
+                    subRow.appendChild(subDecisionCell);
+                } else {
+                    // Non-leaf node - empty cell
+                    subRow.appendChild(document.createElement('td'));
+                }
+                
+                // Empty cells for sub-items
+                for (let i = 0; i < 5; i++) {
+                    subRow.appendChild(document.createElement('td'));
+                }
+                
+                rows.push(subRow);
+                
+                // Recursively add sub-sub-items
+                if (subItem.subItems && subItem.subItems.length > 0) {
+                    const subSubRows = createSubItemRows(subItem.subItems, parentId, level + 1);
+                    rows.push(...subSubRows);
+                }
+            });
+            return rows;
+        }
 
         // Initialize the table
         function initializeTable() {
@@ -450,9 +695,12 @@
                 decisionCell.textContent = '0';
                 categoryRow.appendChild(decisionCell);
                 
+                // Calculate max possible points
+                const maxPoints = countSubItems(category) * 3;
+                
                 // Applicable points cell
                 const applicableCell = document.createElement('td');
-                applicableCell.innerHTML = `<input type="number" class="applicable-input" id="applicable-${category.id}" value="${category.subItems.length * 3}" min="0" max="${category.subItems.length * 3}" onchange="updateCategory('${category.id}')">`;
+                applicableCell.innerHTML = `<input type="number" class="applicable-input" id="applicable-${category.id}" value="${maxPoints}" min="0" max="${maxPoints}" onchange="updateCategory('${category.id}')">`;
                 categoryRow.appendChild(applicableCell);
                 
                 // Percentage cell
@@ -481,28 +729,32 @@
                 tbody.appendChild(categoryRow);
                 
                 // Create sub-item rows
-                category.subItems.forEach(subItem => {
-                    const subRow = document.createElement('tr');
-                    subRow.className = 'sub-item-row';
-                    
-                    const subItemCell = document.createElement('td');
-                    subItemCell.className = 'left-align';
-                    subItemCell.innerHTML = `<span class="sub-item-number">${subItem.id}</span>${subItem.text}`;
-                    subRow.appendChild(subItemCell);
-                    
-                    // Decision input cell
-                    const subDecisionCell = document.createElement('td');
-                    subDecisionCell.innerHTML = `<input type="number" class="decision-input" id="decision-${subItem.id}" value="0" min="0" max="3" onchange="updateCategory('${category.id}')">`;
-                    subRow.appendChild(subDecisionCell);
-                    
-                    // Empty cells for sub-items
-                    for (let i = 0; i < 5; i++) {
-                        subRow.appendChild(document.createElement('td'));
-                    }
-                    
-                    tbody.appendChild(subRow);
-                });
+                const subRows = createSubItemRows(category.subItems, category.id);
+                subRows.forEach(row => tbody.appendChild(row));
             });
+            
+            updateSummary();
+        }
+
+        // Get all decision inputs for a category
+        function getAllDecisionInputs(category) {
+            const inputs = [];
+            
+            function collectInputs(items) {
+                items.forEach(item => {
+                    if (!item.subItems || item.subItems.length === 0) {
+                        const input = document.getElementById(`decision-${item.id}`);
+                        if (input) {
+                            inputs.push(input);
+                        }
+                    } else {
+                        collectInputs(item.subItems);
+                    }
+                });
+            }
+            
+            collectInputs(category.subItems);
+            return inputs;
         }
 
         // Update category calculations
@@ -510,13 +762,13 @@
             const category = criteriaData.find(c => c.id === categoryId);
             if (!category) return;
             
+            // Get all decision inputs for this category
+            const inputs = getAllDecisionInputs(category);
+            
             // Calculate total decision points
             let totalDecision = 0;
-            category.subItems.forEach(subItem => {
-                const decisionInput = document.getElementById(`decision-${subItem.id}`);
-                if (decisionInput) {
-                    totalDecision += parseInt(decisionInput.value) || 0;
-                }
+            inputs.forEach(input => {
+                totalDecision += parseInt(input.value) || 0;
             });
             
             // Update decision total
@@ -554,14 +806,43 @@
             
             // Update percentage color
             if (percentage >= 90) {
-                percentageCell.style.backgroundColor = var(--outstanding);
+                percentageCell.style.backgroundColor = 'var(--outstanding)';
             } else if (percentage >= 70) {
-                percentageCell.style.backgroundColor = var(--passing);
+                percentageCell.style.backgroundColor = 'var(--passing)';
             } else if (percentage >= 50) {
-                percentageCell.style.backgroundColor = var(--emerging);
+                percentageCell.style.backgroundColor = 'var(--emerging)';
             } else {
-                percentageCell.style.backgroundColor = var(--notshown);
+                percentageCell.style.backgroundColor = 'var(--notshown)';
             }
+            
+            updateSummary();
+        }
+
+        // Update summary
+        function updateSummary() {
+            let totalScore = 0;
+            let maxScore = 0;
+            let gapsCount = 0;
+            
+            criteriaData.forEach(category => {
+                const decisionTotal = parseInt(document.getElementById(`decision-total-${category.id}`).textContent) || 0;
+                const applicable = parseInt(document.getElementById(`applicable-${category.id}`).value) || 0;
+                const gap = document.getElementById(`gap-${category.id}`).value;
+                
+                totalScore += decisionTotal;
+                maxScore += applicable;
+                
+                if (gap === 'Yes') {
+                    gapsCount++;
+                }
+            });
+            
+            document.getElementById('total-score').textContent = totalScore;
+            document.getElementById('max-score').textContent = maxScore;
+            document.getElementById('gaps-count').textContent = gapsCount;
+            
+            const overallPercentage = maxScore > 0 ? Math.round((totalScore / maxScore) * 100) : 0;
+            document.getElementById('overall-percentage').textContent = `${overallPercentage}%`;
         }
 
         // Save analysis
@@ -583,15 +864,14 @@
                     applicable: document.getElementById(`applicable-${category.id}`).value,
                     evidence: document.getElementById(`evidence-${category.id}`).value,
                     gap: document.getElementById(`gap-${category.id}`).value,
-                    subItems: []
+                    decisions: {}
                 };
                 
-                category.subItems.forEach(subItem => {
-                    categoryData.subItems.push({
-                        id: subItem.id,
-                        text: subItem.text,
-                        decision: document.getElementById(`decision-${subItem.id}`).value
-                    });
+                // Save all decision values
+                const inputs = getAllDecisionInputs(category);
+                inputs.forEach(input => {
+                    const itemId = input.id.replace('decision-', '');
+                    categoryData.decisions[itemId] = input.value;
                 });
                 
                 analysisData.categories.push(categoryData);
@@ -603,7 +883,6 @@
 
         // Export to Excel
         function exportToExcel() {
-            // Create CSV content
             let csvContent = "O.P.E.N. System Analysis\n\n";
             csvContent += `Supplier code:,${document.getElementById('supplier-code').value}\n`;
             csvContent += `Supplier name:,${document.getElementById('supplier-name').value}\n`;
@@ -624,17 +903,27 @@
                 
                 csvContent += `"${category.id} ${category.title}","","",${decision},${applicable},${percentage},"${evidence}",${gap},${action}\n`;
                 
-                category.subItems.forEach(subItem => {
-                    const subDecision = document.getElementById(`decision-${subItem.id}`).value;
-                    csvContent += `"","${subItem.id}","${subItem.text}",${subDecision},,,,\n`;
-                });
+                // Export sub-items recursively
+                function exportSubItems(items, prefix = '') {
+                    items.forEach(item => {
+                        if (!item.subItems || item.subItems.length === 0) {
+                            const subDecision = document.getElementById(`decision-${item.id}`)?.value || '';
+                            csvContent += `"",${prefix}${item.id},"${item.text}",${subDecision},,,,\n`;
+                        } else {
+                            csvContent += `"",${prefix}${item.id},"${item.text}",,,,,,\n`;
+                            exportSubItems(item.subItems, '  ');
+                        }
+                    });
+                }
+                
+                exportSubItems(category.subItems);
             });
             
             // Download
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `OPEN_Analysis_${new Date().toISOString().split('T')[0]}.csv`;
+            link.download = `OPEN_Analysis_${document.getElementById('supplier-name').value || 'Report'}_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
         }
 
@@ -654,12 +943,15 @@
                 document.getElementById('comment').value = '';
                 
                 criteriaData.forEach(category => {
-                    document.getElementById(`applicable-${category.id}`).value = category.subItems.length * 3;
+                    const maxPoints = countSubItems(category) * 3;
+                    document.getElementById(`applicable-${category.id}`).value = maxPoints;
                     document.getElementById(`evidence-${category.id}`).value = '';
                     document.getElementById(`gap-${category.id}`).value = '';
                     
-                    category.subItems.forEach(subItem => {
-                        document.getElementById(`decision-${subItem.id}`).value = '0';
+                    // Reset all decision selects
+                    const inputs = getAllDecisionInputs(category);
+                    inputs.forEach(input => {
+                        input.value = '0';
                     });
                     
                     updateCategory(category.id);
@@ -685,15 +977,17 @@
                         data.categories.forEach(savedCategory => {
                             const category = criteriaData.find(c => c.id === savedCategory.id);
                             if (category) {
-                                document.getElementById(`applicable-${category.id}`).value = savedCategory.applicable || category.subItems.length * 3;
+                                const maxPoints = countSubItems(category) * 3;
+                                document.getElementById(`applicable-${category.id}`).value = savedCategory.applicable || maxPoints;
                                 document.getElementById(`evidence-${category.id}`).value = savedCategory.evidence || '';
                                 document.getElementById(`gap-${category.id}`).value = savedCategory.gap || '';
                                 
-                                if (savedCategory.subItems) {
-                                    savedCategory.subItems.forEach(savedSubItem => {
-                                        const subItemInput = document.getElementById(`decision-${savedSubItem.id}`);
-                                        if (subItemInput) {
-                                            subItemInput.value = savedSubItem.decision || '0';
+                                // Load decision values
+                                if (savedCategory.decisions) {
+                                    Object.keys(savedCategory.decisions).forEach(itemId => {
+                                        const input = document.getElementById(`decision-${itemId}`);
+                                        if (input) {
+                                            input.value = savedCategory.decisions[itemId] || '0';
                                         }
                                     });
                                 }
@@ -707,6 +1001,20 @@
                 }
             }
         }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveAnalysis();
+            }
+            // Ctrl/Cmd + P to print
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                printReport();
+            }
+        });
 
         // Initialize on load
         window.addEventListener('DOMContentLoaded', function() {
