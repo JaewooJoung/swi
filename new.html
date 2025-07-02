@@ -1,1323 +1,718 @@
-I want to change to following questions :<!-- Process Improvement Group -->
-            <div class="process-group">
-                <div class="process-header" onclick="toggleProcess('pim')">
-                    <h2>PIM - Process Improvement</h2>
-                    <span class="toggle-icon">▼</span>
-                </div>
-                <div class="process-content" id="pim-content">
-                    
-                    <!-- PIM.3 Process Improvement -->
-                    <div class="question">
-                        <h4>PIM.3.1 - Is commitment established to provide resources for improvement measures?</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_1" value="0" id="pim3_1_0">
-                                <label for="pim3_1_0">N - Not Achieved</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_1" value="1" id="pim3_1_1">
-                                <label for="pim3_1_1">P - Partially</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_1" value="2" id="pim3_1_2">
-                                <label for="pim3_1_2">L - Largely</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_1" value="3" id="pim3_1_3">
-                                <label for="pim3_1_3">F - Fully</label>
-                            </div>
-                        </div>
-                    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O.P.E.N. System Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-                    <div class="question">
-                        <h4>PIM.3.2 - Are improvement opportunities identified and process improvement goals established?</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_2" value="0" id="pim3_2_0">
-                                <label for="pim3_2_0">N - Not Achieved</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_2" value="1" id="pim3_2_1">
-                                <label for="pim3_2_1">P - Partially</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_2" value="2" id="pim3_2_2">
-                                <label for="pim3_2_2">L - Largely</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="pim3_2" value="3" id="pim3_2_3">
-                                <label for="pim3_2_3">F - Fully</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --white: #ffffff;
+            --outstanding: #90EE90;
+            --passing: #87CEEB;
+            --emerging: #FFE4B5;
+            --notshown: #D3D3D3;
+            --red-highlight: #FF0000;
+            --yellow-highlight: #FFFF00;
+            --green-highlight: #90EE90;
+            --blue-highlight: #87CEEB;
+        }
 
-            <!-- Work Products Evaluation Group -->
-            <div class="process-group">
-                <div class="process-header" onclick="toggleProcess('wp')">
-                    <h2>WP - Work Products Evaluation</h2>
-                    <span class="toggle-icon">▼</span>
-                </div>
-                <div class="process-content" id="wp-content">
-                    
-                    <div class="work-products-note">
-                        <h4>📋 Work Products Assessment Overview</h4>
-                        <p><strong>Purpose:</strong> Evaluate the completeness and quality of project deliverables and documentation.</p>
-                        <p><strong>Scope:</strong> Covers 47 work products across 10 categories including ISO 26262, ISO 21434, MISRA compliance, and automotive industry standards.</p>
-                        <p><strong>Assessment by:</strong> Nigsti Ayele & Jaewoo Joung (Consultant)</p>
-                    </div>
-                    
-                    <!-- 1. Work Products -->
-                    <div class="question">
-                        <h4>WP.1.1 - Document structure evaluation (SPICE for QM project)</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_1" value="0" id="wp1_1_0">
-                                <label for="wp1_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_1" value="1" id="wp1_1_1">
-                                <label for="wp1_1_1">P - Basic Structure</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_1" value="2" id="wp1_1_2">
-                                <label for="wp1_1_2">L - Well Structured</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_1" value="3" id="wp1_1_3">
-                                <label for="wp1_1_3">F - Comprehensive</label>
-                            </div>
-                        </div>
-                    </div>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            color: #000;
+        }
 
-                    <div class="question">
-                        <h4>WP.1.2 - Document structure evaluation (ISO 26262/ISO 21434 additional)</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_2" value="0" id="wp1_2_0">
-                                <label for="wp1_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_2" value="1" id="wp1_2_1">
-                                <label for="wp1_2_1">P - Basic Structure</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_2" value="2" id="wp1_2_2">
-                                <label for="wp1_2_2">L - Well Structured</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp1_2" value="3" id="wp1_2_3">
-                                <label for="wp1_2_3">F - Comprehensive</label>
-                            </div>
-                        </div>
-                    </div>
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
 
-                    <!-- 2. SW Project Management -->
-                    <div class="question">
-                        <h4>WP.2.1 - SW development plan (may be included in project plan)</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_1" value="0" id="wp2_1_0">
-                                <label for="wp2_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_1" value="1" id="wp2_1_1">
-                                <label for="wp2_1_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_1" value="2" id="wp2_1_2">
-                                <label for="wp2_1_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_1" value="3" id="wp2_1_3">
-                                <label for="wp2_1_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
 
-                    <div class="question">
-                        <h4>WP.2.2 - SW development schedule</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_2" value="0" id="wp2_2_0">
-                                <label for="wp2_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_2" value="1" id="wp2_2_1">
-                                <label for="wp2_2_1">P - Basic Schedule</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_2" value="2" id="wp2_2_2">
-                                <label for="wp2_2_2">L - Detailed Schedule</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_2" value="3" id="wp2_2_3">
-                                <label for="wp2_2_3">F - Comprehensive Schedule</label>
-                            </div>
-                        </div>
-                    </div>
+        .header-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
 
-                    <div class="question">
-                        <h4>WP.2.3 - Risk management plan</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_3" value="0" id="wp2_3_0">
-                                <label for="wp2_3_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_3" value="1" id="wp2_3_1">
-                                <label for="wp2_3_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_3" value="2" id="wp2_3_2">
-                                <label for="wp2_3_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_3" value="3" id="wp2_3_3">
-                                <label for="wp2_3_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-                    <div class="question">
-                        <h4>WP.2.4 - Risk management list</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_4" value="0" id="wp2_4_0">
-                                <label for="wp2_4_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_4" value="1" id="wp2_4_1">
-                                <label for="wp2_4_1">P - Basic List</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_4" value="2" id="wp2_4_2">
-                                <label for="wp2_4_2">L - Detailed List</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_4" value="3" id="wp2_4_3">
-                                <label for="wp2_4_3">F - Comprehensive List</label>
-                            </div>
-                        </div>
-                    </div>
+        .info-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
 
-                    <div class="question">
-                        <h4>WP.2.5 - SW functional safety/security management (Safety plan/Security plan)</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_5" value="0" id="wp2_5_0">
-                                <label for="wp2_5_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_5" value="1" id="wp2_5_1">
-                                <label for="wp2_5_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_5" value="2" id="wp2_5_2">
-                                <label for="wp2_5_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp2_5" value="3" id="wp2_5_3">
-                                <label for="wp2_5_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
+        .info-item label {
+            min-width: 150px;
+        }
 
-                    <!-- 3. SW Quality Assurance & Functional Safety/Cyber Security -->
-                    <div class="question">
-                        <h4>WP.3.1 - SW Quality Plan</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_1" value="0" id="wp3_1_0">
-                                <label for="wp3_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_1" value="1" id="wp3_1_1">
-                                <label for="wp3_1_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_1" value="2" id="wp3_1_2">
-                                <label for="wp3_1_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_1" value="3" id="wp3_1_3">
-                                <label for="wp3_1_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
+        .info-item input {
+            border: none;
+            border-bottom: 1px solid #000;
+            padding: 2px 5px;
+            flex: 1;
+            font-size: 14px;
+        }
 
-                    <div class="question">
-                        <h4>WP.3.2 - Functional safety assessment/Cybersecurity assessment</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_2" value="0" id="wp3_2_0">
-                                <label for="wp3_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_2" value="1" id="wp3_2_1">
-                                <label for="wp3_2_1">P - Basic Assessment</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_2" value="2" id="wp3_2_2">
-                                <label for="wp3_2_2">L - Detailed Assessment</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_2" value="3" id="wp3_2_3">
-                                <label for="wp3_2_3">F - Comprehensive Assessment</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-box {
+            border: 2px solid #000;
+            padding: 10px;
+        }
 
-                    <div class="question">
-                        <h4>WP.3.3 - Skill and Training matrix</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_3" value="0" id="wp3_3_0">
-                                <label for="wp3_3_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_3" value="1" id="wp3_3_1">
-                                <label for="wp3_3_1">P - Basic Matrix</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_3" value="2" id="wp3_3_2">
-                                <label for="wp3_3_2">L - Detailed Matrix</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_3" value="3" id="wp3_3_3">
-                                <label for="wp3_3_3">F - Comprehensive Matrix</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+        }
 
-                    <div class="question">
-                        <h4>WP.3.4 - Responsibility matrix</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_4" value="0" id="wp3_4_0">
-                                <label for="wp3_4_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_4" value="1" id="wp3_4_1">
-                                <label for="wp3_4_1">P - Basic Matrix</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_4" value="2" id="wp3_4_2">
-                                <label for="wp3_4_2">L - Detailed Matrix</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp3_4" value="3" id="wp3_4_3">
-                                <label for="wp3_4_3">F - Comprehensive Matrix</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-item {
+            display: grid;
+            grid-template-columns: 150px 40px;
+            align-items: center;
+            margin-bottom: 5px;
+        }
 
-                    <!-- 4. Development Process -->
-                    <div class="question">
-                        <h4>WP.4.1 - Process capability ASPICE</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_1" value="0" id="wp4_1_0">
-                                <label for="wp4_1_0">N - Not Assessed</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_1" value="1" id="wp4_1_1">
-                                <label for="wp4_1_1">P - Basic Assessment</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_1" value="2" id="wp4_1_2">
-                                <label for="wp4_1_2">L - Detailed Assessment</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_1" value="3" id="wp4_1_3">
-                                <label for="wp4_1_3">F - Comprehensive Assessment</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-item span:first-child {
+            padding: 2px 5px;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.2 - Process capability ISO 26262/ISO 21434 audit</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_2" value="0" id="wp4_2_0">
-                                <label for="wp4_2_0">N - Not Assessed</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_2" value="1" id="wp4_2_1">
-                                <label for="wp4_2_1">P - Basic Assessment</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_2" value="2" id="wp4_2_2">
-                                <label for="wp4_2_2">L - Detailed Assessment</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_2" value="3" id="wp4_2_3">
-                                <label for="wp4_2_3">F - Comprehensive Assessment</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-item span:last-child {
+            text-align: center;
+        }
 
-                    <!-- 4.3 Requirements Management -->
-                    <div class="question">
-                        <h4>WP.4.3.1.1 - System Requirements management</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_1" value="0" id="wp4_3_1_1_0">
-                                <label for="wp4_3_1_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_1" value="1" id="wp4_3_1_1_1">
-                                <label for="wp4_3_1_1_1">P - Basic Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_1" value="2" id="wp4_3_1_1_2">
-                                <label for="wp4_3_1_1_2">L - Detailed Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_1" value="3" id="wp4_3_1_1_3">
-                                <label for="wp4_3_1_1_3">F - Comprehensive Management</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-outstanding {
+            background-color: var(--outstanding);
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.1.2 - SW Requirement management</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_2" value="0" id="wp4_3_1_2_0">
-                                <label for="wp4_3_1_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_2" value="1" id="wp4_3_1_2_1">
-                                <label for="wp4_3_1_2_1">P - Basic Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_2" value="2" id="wp4_3_1_2_2">
-                                <label for="wp4_3_1_2_2">L - Detailed Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_1_2" value="3" id="wp4_3_1_2_3">
-                                <label for="wp4_3_1_2_3">F - Comprehensive Management</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-passing {
+            background-color: var(--passing);
+        }
 
-                    <!-- 4.3.2 SW Design -->
-                    <div class="question">
-                        <h4>WP.4.3.2.1 - SW Architectural design</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_1" value="0" id="wp4_3_2_1_0">
-                                <label for="wp4_3_2_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_1" value="1" id="wp4_3_2_1_1">
-                                <label for="wp4_3_2_1_1">P - Basic Design</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_1" value="2" id="wp4_3_2_1_2">
-                                <label for="wp4_3_2_1_2">L - Detailed Design</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_1" value="3" id="wp4_3_2_1_3">
-                                <label for="wp4_3_2_1_3">F - Comprehensive Design</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-emerging {
+            background-color: var(--emerging);
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.2.2 - SW Detailed design specification</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_2" value="0" id="wp4_3_2_2_0">
-                                <label for="wp4_3_2_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_2" value="1" id="wp4_3_2_2_1">
-                                <label for="wp4_3_2_2_1">P - Basic Specification</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_2" value="2" id="wp4_3_2_2_2">
-                                <label for="wp4_3_2_2_2">L - Detailed Specification</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_2" value="3" id="wp4_3_2_2_3">
-                                <label for="wp4_3_2_2_3">F - Comprehensive Specification</label>
-                            </div>
-                        </div>
-                    </div>
+        .legend-notshown {
+            background-color: var(--notshown);
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.2.3 - Coding guidelines</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_3" value="0" id="wp4_3_2_3_0">
-                                <label for="wp4_3_2_3_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_3" value="1" id="wp4_3_2_3_1">
-                                <label for="wp4_3_2_3_1">P - Basic Guidelines</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_3" value="2" id="wp4_3_2_3_2">
-                                <label for="wp4_3_2_3_2">L - Detailed Guidelines</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_3" value="3" id="wp4_3_2_3_3">
-                                <label for="wp4_3_2_3_3">F - Comprehensive Guidelines</label>
-                            </div>
-                        </div>
-                    </div>
+        .stopping-parameter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.2.4 - Code review</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_4" value="0" id="wp4_3_2_4_0">
-                                <label for="wp4_3_2_4_0">N - Not Performed</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_4" value="1" id="wp4_3_2_4_1">
-                                <label for="wp4_3_2_4_1">P - Basic Review</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_4" value="2" id="wp4_3_2_4_2">
-                                <label for="wp4_3_2_4_2">L - Systematic Review</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_4" value="3" id="wp4_3_2_4_3">
-                                <label for="wp4_3_2_4_3">F - Comprehensive Review</label>
-                            </div>
-                        </div>
-                    </div>
+        .red-box {
+            width: 100px;
+            height: 30px;
+            background-color: var(--red-highlight);
+            border: 1px solid #000;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.2.5 - MISRA compliance report</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_5" value="0" id="wp4_3_2_5_0">
-                                <label for="wp4_3_2_5_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_5" value="1" id="wp4_3_2_5_1">
-                                <label for="wp4_3_2_5_1">P - Basic Report</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_5" value="2" id="wp4_3_2_5_2">
-                                <label for="wp4_3_2_5_2">L - Detailed Report</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_5" value="3" id="wp4_3_2_5_3">
-                                <label for="wp4_3_2_5_3">F - Comprehensive Report</label>
-                            </div>
-                        </div>
-                    </div>
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.2.6 - Static/Dynamic code Analysis (SW Metrics)</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_6" value="0" id="wp4_3_2_6_0">
-                                <label for="wp4_3_2_6_0">N - Not Performed</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_6" value="1" id="wp4_3_2_6_1">
-                                <label for="wp4_3_2_6_1">P - Basic Analysis</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_6" value="2" id="wp4_3_2_6_2">
-                                <label for="wp4_3_2_6_2">L - Detailed Analysis</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_6" value="3" id="wp4_3_2_6_3">
-                                <label for="wp4_3_2_6_3">F - Comprehensive Analysis</label>
-                            </div>
-                        </div>
-                    </div>
+        .main-table th {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.2.7 - Worst case analysis report</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_7" value="0" id="wp4_3_2_7_0">
-                                <label for="wp4_3_2_7_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_7" value="1" id="wp4_3_2_7_1">
-                                <label for="wp4_3_2_7_1">P - Basic Report</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_7" value="2" id="wp4_3_2_7_2">
-                                <label for="wp4_3_2_7_2">L - Detailed Report</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_7" value="3" id="wp4_3_2_7_3">
-                                <label for="wp4_3_2_7_3">F - Comprehensive Report</label>
-                            </div>
-                        </div>
-                    </div>
+        .main-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.3.2.8 - SW integration</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_8" value="0" id="wp4_3_2_8_0">
-                                <label for="wp4_3_2_8_0">N - Not Performed</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_8" value="1" id="wp4_3_2_8_1">
-                                <label for="wp4_3_2_8_1">P - Basic Integration</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_8" value="2" id="wp4_3_2_8_2">
-                                <label for="wp4_3_2_8_2">L - Systematic Integration</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_3_2_8" value="3" id="wp4_3_2_8_3">
-                                <label for="wp4_3_2_8_3">F - Comprehensive Integration</label>
-                            </div>
-                        </div>
-                    </div>
+        .main-table .left-align {
+            text-align: left;
+            padding-left: 10px;
+        }
 
-                    <!-- 4.4 SW Verification -->
-                    <div class="question">
-                        <h4>WP.4.4.1 - SW Test plan</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_1" value="0" id="wp4_4_1_0">
-                                <label for="wp4_4_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_1" value="1" id="wp4_4_1_1">
-                                <label for="wp4_4_1_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_1" value="2" id="wp4_4_1_2">
-                                <label for="wp4_4_1_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_1" value="3" id="wp4_4_1_3">
-                                <label for="wp4_4_1_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
+        .category-row {
+            font-weight: bold;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.4.2 - SW Test cases and test reports</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_2" value="0" id="wp4_4_2_0">
-                                <label for="wp4_4_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_2" value="1" id="wp4_4_2_1">
-                                <label for="wp4_4_2_1">P - Basic Cases/Reports</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_2" value="2" id="wp4_4_2_2">
-                                <label for="wp4_4_2_2">L - Detailed Cases/Reports</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_2" value="3" id="wp4_4_2_3">
-                                <label for="wp4_4_2_3">F - Comprehensive Cases/Reports</label>
-                            </div>
-                        </div>
-                    </div>
+        .category-row td:first-child {
+            padding-left: 5px;
+        }
 
-                    <div class="question">
-                        <h4>WP.4.4.3 - Review process and evidences of reviews</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_3" value="0" id="wp4_4_3_0">
-                                <label for="wp4_4_3_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_3" value="1" id="wp4_4_3_1">
-                                <label for="wp4_4_3_1">P - Basic Process</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_3" value="2" id="wp4_4_3_2">
-                                <label for="wp4_4_3_2">L - Detailed Process</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_4_3" value="3" id="wp4_4_3_3">
-                                <label for="wp4_4_3_3">F - Comprehensive Process</label>
-                            </div>
-                        </div>
-                    </div>
+        .work-products {
+            background-color: var(--green-highlight);
+        }
 
-                    <div class="question">
-                        <h4>WP.4.5 - Bilateral Requirement Traceability</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_5" value="0" id="wp4_5_0">
-                                <label for="wp4_5_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_5" value="1" id="wp4_5_1">
-                                <label for="wp4_5_1">P - Basic Traceability</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_5" value="2" id="wp4_5_2">
-                                <label for="wp4_5_2">L - Detailed Traceability</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp4_5" value="3" id="wp4_5_3">
-                                <label for="wp4_5_3">F - Complete Traceability</label>
-                            </div>
-                        </div>
-                    </div>
+        .sw-project-management {
+            background-color: var(--blue-highlight);
+        }
 
-                    <!-- 5. Change Request Process -->
-                    <div class="question">
-                        <h4>WP.5.1 - Change request process (internal and customer)</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_1" value="0" id="wp5_1_0">
-                                <label for="wp5_1_0">N - Not Defined</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_1" value="1" id="wp5_1_1">
-                                <label for="wp5_1_1">P - Basic Process</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_1" value="2" id="wp5_1_2">
-                                <label for="wp5_1_2">L - Detailed Process</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_1" value="3" id="wp5_1_3">
-                                <label for="wp5_1_3">F - Comprehensive Process</label>
-                            </div>
-                        </div>
-                    </div>
+        .sub-item-row td:first-child {
+            padding-left: 30px;
+        }
 
-                    <div class="question">
-                        <h4>WP.5.2 - Problem tracking and reporting</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_2" value="0" id="wp5_2_0">
-                                <label for="wp5_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_2" value="1" id="wp5_2_1">
-                                <label for="wp5_2_1">P - Basic Tracking</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_2" value="2" id="wp5_2_2">
-                                <label for="wp5_2_2">L - Systematic Tracking</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp5_2" value="3" id="wp5_2_3">
-                                <label for="wp5_2_3">F - Comprehensive Tracking</label>
-                            </div>
-                        </div>
-                    </div>
+        .sub-item-number {
+            display: inline-block;
+            min-width: 30px;
+        }
 
-                    <!-- 6. Communication and Progress Reporting -->
-                    <div class="question">
-                        <h4>WP.6.1 - Communication plan</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_1" value="0" id="wp6_1_0">
-                                <label for="wp6_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_1" value="1" id="wp6_1_1">
-                                <label for="wp6_1_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_1" value="2" id="wp6_1_2">
-                                <label for="wp6_1_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_1" value="3" id="wp6_1_3">
-                                <label for="wp6_1_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
+        .decision-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
 
-                    <div class="question">
-                        <h4>WP.6.2.1 - Current and projected microprocessors load</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_1" value="0" id="wp6_2_1_0">
-                                <label for="wp6_2_1_0">N - Not Monitored</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_1" value="1" id="wp6_2_1_1">
-                                <label for="wp6_2_1_1">P - Basic Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_1" value="2" id="wp6_2_1_2">
-                                <label for="wp6_2_1_2">L - Regular Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_1" value="3" id="wp6_2_1_3">
-                                <label for="wp6_2_1_3">F - Continuous Monitoring</label>
-                            </div>
-                        </div>
-                    </div>
+        .applicable-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
 
-                    <div class="question">
-                        <h4>WP.6.2.2 - Current and projected RAM usage</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_2" value="0" id="wp6_2_2_0">
-                                <label for="wp6_2_2_0">N - Not Monitored</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_2" value="1" id="wp6_2_2_1">
-                                <label for="wp6_2_2_1">P - Basic Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_2" value="2" id="wp6_2_2_2">
-                                <label for="wp6_2_2_2">L - Regular Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_2" value="3" id="wp6_2_2_3">
-                                <label for="wp6_2_2_3">F - Continuous Monitoring</label>
-                            </div>
-                        </div>
-                    </div>
+        .percentage-cell {
+            font-weight: bold;
+        }
 
-                    <div class="question">
-                        <h4>WP.6.2.3 - Current and projected ROM usage</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_3" value="0" id="wp6_2_3_0">
-                                <label for="wp6_2_3_0">N - Not Monitored</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_3" value="1" id="wp6_2_3_1">
-                                <label for="wp6_2_3_1">P - Basic Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_3" value="2" id="wp6_2_3_2">
-                                <label for="wp6_2_3_2">L - Regular Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_3" value="3" id="wp6_2_3_3">
-                                <label for="wp6_2_3_3">F - Continuous Monitoring</label>
-                            </div>
-                        </div>
-                    </div>
+        .evidence-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
 
-                    <div class="question">
-                        <h4>WP.6.2.4 - Current and projected EEPROM usage</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_4" value="0" id="wp6_2_4_0">
-                                <label for="wp6_2_4_0">N - Not Monitored</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_4" value="1" id="wp6_2_4_1">
-                                <label for="wp6_2_4_1">P - Basic Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_4" value="2" id="wp6_2_4_2">
-                                <label for="wp6_2_4_2">L - Regular Monitoring</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp6_2_4" value="3" id="wp6_2_4_3">
-                                <label for="wp6_2_4_3">F - Continuous Monitoring</label>
-                            </div>
-                        </div>
-                    </div>
+        .gap-select {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
 
-                    <!-- 7. Configuration Management -->
-                    <div class="question">
-                        <h4>WP.7.1 - Configuration management plan</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_1" value="0" id="wp7_1_0">
-                                <label for="wp7_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_1" value="1" id="wp7_1_1">
-                                <label for="wp7_1_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_1" value="2" id="wp7_1_2">
-                                <label for="wp7_1_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_1" value="3" id="wp7_1_3">
-                                <label for="wp7_1_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
+        .check-action {
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
 
-                    <div class="question">
-                        <h4>WP.7.2 - Configuration management items list</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_2" value="0" id="wp7_2_0">
-                                <label for="wp7_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_2" value="1" id="wp7_2_1">
-                                <label for="wp7_2_1">P - Basic List</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_2" value="2" id="wp7_2_2">
-                                <label for="wp7_2_2">L - Detailed List</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_2" value="3" id="wp7_2_3">
-                                <label for="wp7_2_3">F - Comprehensive List</label>
-                            </div>
-                        </div>
-                    </div>
+        .category-headers {
+            background-color: #e0e0e0;
+        }
 
-                    <div class="question">
-                        <h4>WP.7.3 - Configuration management tool</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_3" value="0" id="wp7_3_0">
-                                <label for="wp7_3_0">N - Not Implemented</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_3" value="1" id="wp7_3_1">
-                                <label for="wp7_3_1">P - Basic Tool</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_3" value="2" id="wp7_3_2">
-                                <label for="wp7_3_2">L - Advanced Tool</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp7_3" value="3" id="wp7_3_3">
-                                <label for="wp7_3_3">F - Integrated Tool Suite</label>
-                            </div>
-                        </div>
-                    </div>
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
 
-                    <!-- 8. Sub Contracting -->
-                    <div class="question">
-                        <h4>WP.8.1 - Contract and Quality management</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp8_1" value="0" id="wp8_1_0">
-                                <label for="wp8_1_0">N - Not Applicable/Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp8_1" value="1" id="wp8_1_1">
-                                <label for="wp8_1_1">P - Basic Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp8_1" value="2" id="wp8_1_2">
-                                <label for="wp8_1_2">L - Systematic Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp8_1" value="3" id="wp8_1_3">
-                                <label for="wp8_1_3">F - Comprehensive Management</label>
-                            </div>
-                        </div>
-                    </div>
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: 1px solid #000;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s ease;
+        }
 
-                    <!-- 9. Data Management -->
-                    <div class="question">
-                        <h4>WP.9.1 - Data Management</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp9_1" value="0" id="wp9_1_0">
-                                <label for="wp9_1_0">N - Not Implemented</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp9_1" value="1" id="wp9_1_1">
-                                <label for="wp9_1_1">P - Basic Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp9_1" value="2" id="wp9_1_2">
-                                <label for="wp9_1_2">L - Systematic Management</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp9_1" value="3" id="wp9_1_3">
-                                <label for="wp9_1_3">F - Comprehensive Management</label>
-                            </div>
-                        </div>
-                    </div>
+        .btn:hover {
+            background: #f0f0f0;
+        }
 
-                    <!-- 10. Release, Delivery, Acceptance and Maintenance -->
-                    <div class="question">
-                        <h4>WP.10.1.1 - Release note</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_1" value="0" id="wp10_1_1_0">
-                                <label for="wp10_1_1_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_1" value="1" id="wp10_1_1_1">
-                                <label for="wp10_1_1_1">P - Basic Note</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_1" value="2" id="wp10_1_1_2">
-                                <label for="wp10_1_1_2">L - Detailed Note</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_1" value="3" id="wp10_1_1_3">
-                                <label for="wp10_1_1_3">F - Comprehensive Note</label>
-                            </div>
-                        </div>
-                    </div>
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
 
-                    <div class="question">
-                        <h4>WP.10.1.2 - ISO 26262/ISO 21434 Release documentation</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_2" value="0" id="wp10_1_2_0">
-                                <label for="wp10_1_2_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_2" value="1" id="wp10_1_2_1">
-                                <label for="wp10_1_2_1">P - Basic Documentation</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_2" value="2" id="wp10_1_2_2">
-                                <label for="wp10_1_2_2">L - Detailed Documentation</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_2" value="3" id="wp10_1_2_3">
-                                <label for="wp10_1_2_3">F - Complete Documentation</label>
-                            </div>
-                        </div>
-                    </div>
+        .btn-primary:hover {
+            background: #45a049;
+        }
 
-                    <div class="question">
-                        <h4>WP.10.1.3 - SW APQP checklists</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_3" value="0" id="wp10_1_3_0">
-                                <label for="wp10_1_3_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_3" value="1" id="wp10_1_3_1">
-                                <label for="wp10_1_3_1">P - Basic Checklists</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_3" value="2" id="wp10_1_3_2">
-                                <label for="wp10_1_3_2">L - Detailed Checklists</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_3" value="3" id="wp10_1_3_3">
-                                <label for="wp10_1_3_3">F - Complete Checklists</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>WP.10.1.4 - SW PPAP (PSW or SSW)</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_4" value="0" id="wp10_1_4_0">
-                                <label for="wp10_1_4_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_4" value="1" id="wp10_1_4_1">
-                                <label for="wp10_1_4_1">P - Basic PPAP</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_4" value="2" id="wp10_1_4_2">
-                                <label for="wp10_1_4_2">L - Detailed PPAP</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_1_4" value="3" id="wp10_1_4_3">
-                                <label for="wp10_1_4_3">F - Complete PPAP</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>WP.10.2.1 - Delivery reviews</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_1" value="0" id="wp10_2_1_0">
-                                <label for="wp10_2_1_0">N - Not Performed</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_1" value="1" id="wp10_2_1_1">
-                                <label for="wp10_2_1_1">P - Basic Reviews</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_1" value="2" id="wp10_2_1_2">
-                                <label for="wp10_2_1_2">L - Systematic Reviews</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_1" value="3" id="wp10_2_1_3">
-                                <label for="wp10_2_1_3">F - Comprehensive Reviews</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>WP.10.2.2 - Lessons learned or Post mortem review</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_2" value="0" id="wp10_2_2_0">
-                                <label for="wp10_2_2_0">N - Not Performed</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_2" value="1" id="wp10_2_2_1">
-                                <label for="wp10_2_2_1">P - Basic Reviews</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_2" value="2" id="wp10_2_2_2">
-                                <label for="wp10_2_2_2">L - Systematic Reviews</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_2" value="3" id="wp10_2_2_3">
-                                <label for="wp10_2_2_3">F - Comprehensive Reviews</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>WP.10.2.3 - Maintenance plan</h4>
-                        <div class="rating-options">
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_3" value="0" id="wp10_2_3_0">
-                                <label for="wp10_2_3_0">N - Not Available</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_3" value="1" id="wp10_2_3_1">
-                                <label for="wp10_2_3_1">P - Basic Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_3" value="2" id="wp10_2_3_2">
-                                <label for="wp10_2_3_2">L - Detailed Plan</label>
-                            </div>
-                            <div class="rating-option">
-                                <input type="radio" name="wp10_2_3" value="3" id="wp10_2_3_3">
-                                <label for="wp10_2_3_3">F - Comprehensive Plan</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-                <script>
-        // Toggle process sections
-        function toggleProcess(processId) {
-            const content = document.getElementById(processId + '-content');
-            const header = content.previousElementSibling;
-            
-            if (content.classList.contains('active')) {
-                content.classList.remove('active');
-                header.classList.remove('active');
-            } else {
-                content.classList.add('active');
-                header.classList.add('active');
+        @media print {
+            body {
+                padding: 0;
             }
-            
-            updateProgress();
+            .action-buttons {
+                display: none;
+            }
         }
-
-        // Update progress bar
-        function updateProgress() {
-            const allRadios = document.querySelectorAll('input[type="radio"]');
-            const answeredGroups = new Set();
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>O.P.E.N. System Analysis</h1>
+        
+        <div class="header-grid">
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Supplier code [Blank]</label>
+                    <input type="text" id="supplier-code">
+                </div>
+                <div class="info-item">
+                    <label>Supplier name [Blank]</label>
+                    <input type="text" id="supplier-name">
+                </div>
+                <div class="info-item">
+                    <label>Type of Software [Blank]</label>
+                    <input type="text" id="software-type">
+                </div>
+                <div class="info-item">
+                    <label>Audited by [Jaewoo Joung]</label>
+                    <input type="text" id="audited-by" value="Jaewoo Joung">
+                </div>
+                <div class="info-item">
+                    <label>Team members [Blank]</label>
+                    <input type="text" id="team-members">
+                </div>
+                <div class="info-item">
+                    <label>Comment [Blank]</label>
+                    <input type="text" id="comment">
+                </div>
+            </div>
             
-            allRadios.forEach(radio => {
-                if (radio.checked) {
-                    answeredGroups.add(radio.name);
-                }
-            });
+            <div class="legend-box">
+                <div class="legend-title">Legend</div>
+                <div class="legend-item">
+                    <span class="legend-outstanding">Outstanding</span>
+                    <span>3</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-passing">Passing</span>
+                    <span>2</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-emerging">Emerging</span>
+                    <span>1</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-notshown">Not shown</span>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stopping-parameter">
+            <div class="red-box"></div>
+            <span>Stopping parameter</span>
+        </div>
+
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th style="width: 40%;" rowspan="2">Criteria</th>
+                    <th style="width: 8%;">Decision</th>
+                    <th style="width: 8%;">Applicable<br>points</th>
+                    <th style="width: 8%;">Average<br>%</th>
+                    <th style="width: 20%;" rowspan="2">Evidence</th>
+                    <th style="width: 8%;" rowspan="2">Gap</th>
+                    <th style="width: 8%;" rowspan="2">Check if action<br>required</th>
+                </tr>
+                <tr class="category-headers">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="criteria-body">
+                <!-- Content will be dynamically generated -->
+            </tbody>
+        </table>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveAnalysis()">Save Analysis</button>
+            <button class="btn" onclick="exportToExcel()">Export to Excel</button>
+            <button class="btn" onclick="printReport()">Print Report</button>
+            <button class="btn" onclick="resetForm()">Reset Form</button>
+        </div>
+    </div>
+
+    <script>
+        // Criteria data structure based on the image
+        const criteriaData = [
+            {
+                id: '1',
+                title: 'Work products',
+                bgColor: 'work-products',
+                subItems: [
+                    { id: '1.1', text: 'Document structure evaluation (SPICE for QM project)' },
+                    { id: '1.2', text: 'Document structure evaluation (ISO 26262 additional to 1.1)/ISO21434' }
+                ]
+            },
+            {
+                id: '2',
+                title: 'SW project Management',
+                bgColor: 'sw-project-management',
+                subItems: [
+                    { id: '2.1', text: 'SW development plan (may be included in project plan)' },
+                    { id: '2.2', text: 'SW development schedule' }
+                ]
+            },
+            {
+                id: '3',
+                title: 'Requirements management',
+                bgColor: '',
+                subItems: [
+                    { id: '3.1', text: 'Requirements specification' },
+                    { id: '3.2', text: 'Requirements tracking' }
+                ]
+            },
+            {
+                id: '4',
+                title: 'Design and implementation',
+                bgColor: '',
+                subItems: [
+                    { id: '4.1', text: 'Design documentation' },
+                    { id: '4.2', text: 'Code reviews' },
+                    { id: '4.3', text: 'Coding standards' }
+                ]
+            },
+            {
+                id: '5',
+                title: 'Testing and validation',
+                bgColor: '',
+                subItems: [
+                    { id: '5.1', text: 'Test plan' },
+                    { id: '5.2', text: 'Test execution records' },
+                    { id: '5.3', text: 'Defect tracking' }
+                ]
+            },
+            {
+                id: '6',
+                title: 'Configuration management',
+                bgColor: '',
+                subItems: [
+                    { id: '6.1', text: 'Version control' },
+                    { id: '6.2', text: 'Change management process' }
+                ]
+            },
+            {
+                id: '7',
+                title: 'Quality assurance',
+                bgColor: '',
+                subItems: [
+                    { id: '7.1', text: 'QA processes' },
+                    { id: '7.2', text: 'Audit records' }
+                ]
+            }
+        ];
+
+        // Initialize the table
+        function initializeTable() {
+            const tbody = document.getElementById('criteria-body');
+            tbody.innerHTML = '';
             
-            const totalQuestions = new Set();
-            allRadios.forEach(radio => {
-                totalQuestions.add(radio.name);
-            });
-            
-            const progress = (answeredGroups.size / totalQuestions.size) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('overallProgress').textContent = `Progress: ${Math.round(progress)}%`;
-        }
-
-        // Add event listeners to all radio buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            const allRadios = document.querySelectorAll('input[type="radio"]');
-            allRadios.forEach(radio => {
-                radio.addEventListener('change', updateProgress);
-            });
-        });
-
-        // Calculate scores for each process group
-        function calculateScores() {
-            const processGroups = {
-                'sys': ['sys1_1', 'sys1_2', 'sys2_1', 'sys2_2', 'sys3_1', 'sys3_2'],
-                'swe': ['swe1_1', 'swe2_1', 'swe3_1', 'swe4_1', 'swe5_1', 'swe6_1'],
-                'man': ['man3_1', 'man3_2', 'man5_1', 'man6_1'],
-                'sup': ['sup1_1', 'sup8_1', 'sup9_1', 'sup10_1'],
-                'val': ['val1_1', 'val1_2'],
-                'spl': ['spl2_1', 'spl2_2'],
-                'pim': ['pim3_1', 'pim3_2']
-            };
-
-            const scores = {};
-            let totalScore = 0;
-            let totalQuestions = 0;
-
-            for (const [group, questions] of Object.entries(processGroups)) {
-                let groupScore = 0;
-                let answeredQuestions = 0;
-
-                questions.forEach(questionName => {
-                    const selectedRadio = document.querySelector(`input[name="${questionName}"]:checked`);
-                    if (selectedRadio) {
-                        groupScore += parseInt(selectedRadio.value);
-                        answeredQuestions++;
+            criteriaData.forEach(category => {
+                // Create category row
+                const categoryRow = document.createElement('tr');
+                categoryRow.className = 'category-row';
+                
+                const categoryCell = document.createElement('td');
+                categoryCell.className = `left-align ${category.bgColor}`;
+                categoryCell.innerHTML = `<strong>${category.id} ${category.title}</strong>`;
+                categoryRow.appendChild(categoryCell);
+                
+                // Decision total cell
+                const decisionCell = document.createElement('td');
+                decisionCell.id = `decision-total-${category.id}`;
+                decisionCell.textContent = '0';
+                categoryRow.appendChild(decisionCell);
+                
+                // Applicable points cell
+                const applicableCell = document.createElement('td');
+                applicableCell.innerHTML = `<input type="number" class="applicable-input" id="applicable-${category.id}" value="${category.subItems.length * 3}" min="0" max="${category.subItems.length * 3}" onchange="updateCategory('${category.id}')">`;
+                categoryRow.appendChild(applicableCell);
+                
+                // Percentage cell
+                const percentageCell = document.createElement('td');
+                percentageCell.className = 'percentage-cell';
+                percentageCell.id = `percentage-${category.id}`;
+                percentageCell.textContent = '0%';
+                categoryRow.appendChild(percentageCell);
+                
+                // Evidence cell
+                const evidenceCell = document.createElement('td');
+                evidenceCell.innerHTML = `<input type="text" class="evidence-input" id="evidence-${category.id}" placeholder="Enter evidence">`;
+                categoryRow.appendChild(evidenceCell);
+                
+                // Gap cell
+                const gapCell = document.createElement('td');
+                gapCell.innerHTML = `<select class="gap-select" id="gap-${category.id}"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select>`;
+                categoryRow.appendChild(gapCell);
+                
+                // Check action cell
+                const checkCell = document.createElement('td');
+                checkCell.className = 'check-action';
+                checkCell.id = `check-${category.id}`;
+                categoryRow.appendChild(checkCell);
+                
+                tbody.appendChild(categoryRow);
+                
+                // Create sub-item rows
+                category.subItems.forEach(subItem => {
+                    const subRow = document.createElement('tr');
+                    subRow.className = 'sub-item-row';
+                    
+                    const subItemCell = document.createElement('td');
+                    subItemCell.className = 'left-align';
+                    subItemCell.innerHTML = `<span class="sub-item-number">${subItem.id}</span>${subItem.text}`;
+                    subRow.appendChild(subItemCell);
+                    
+                    // Decision input cell
+                    const subDecisionCell = document.createElement('td');
+                    subDecisionCell.innerHTML = `<input type="number" class="decision-input" id="decision-${subItem.id}" value="0" min="0" max="3" onchange="updateCategory('${category.id}')">`;
+                    subRow.appendChild(subDecisionCell);
+                    
+                    // Empty cells for sub-items
+                    for (let i = 0; i < 5; i++) {
+                        subRow.appendChild(document.createElement('td'));
                     }
+                    
+                    tbody.appendChild(subRow);
                 });
+            });
+        }
 
-                if (answeredQuestions > 0) {
-                    const averageScore = (groupScore / answeredQuestions / 3) * 100; // Convert to percentage
-                    scores[group] = Math.round(averageScore);
-                    totalScore += groupScore;
-                    totalQuestions += answeredQuestions;
-                } else {
-                    scores[group] = 0;
+        // Update category calculations
+        function updateCategory(categoryId) {
+            const category = criteriaData.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            // Calculate total decision points
+            let totalDecision = 0;
+            category.subItems.forEach(subItem => {
+                const decisionInput = document.getElementById(`decision-${subItem.id}`);
+                if (decisionInput) {
+                    totalDecision += parseInt(decisionInput.value) || 0;
                 }
-            }
-
-            // Calculate overall maturity level
-            const overallPercentage = totalQuestions > 0 ? (totalScore / (totalQuestions * 3)) * 100 : 0;
-            const maturityLevel = getMaturityLevel(overallPercentage);
-
-            // Display scores
-            document.getElementById('sysScore').textContent = scores.sys + '%';
-            document.getElementById('sweScore').textContent = scores.swe + '%';
-            document.getElementById('manScore').textContent = scores.man + '%';
-            document.getElementById('supScore').textContent = scores.sup + '%';
-            document.getElementById('valScore').textContent = scores.val + '%';
-            document.getElementById('splScore').textContent = scores.spl + '%';
-            document.getElementById('pimScore').textContent = scores.pim + '%';
+            });
             
-            const overallScoreElement = document.getElementById('overallScore');
-            overallScoreElement.innerHTML = `${Math.round(overallPercentage)}% <span class="maturity-level level-${maturityLevel}">Level ${maturityLevel}</span>`;
-
-            // Show recommendations
-            showRecommendations(scores, maturityLevel);
-
-            // Show score display
-            document.getElementById('scoreDisplay').style.display = 'block';
-            document.getElementById('scoreDisplay').scrollIntoView({ behavior: 'smooth' });
+            // Update decision total
+            document.getElementById(`decision-total-${categoryId}`).textContent = totalDecision;
+            
+            // Get applicable points
+            const applicableInput = document.getElementById(`applicable-${categoryId}`);
+            const applicable = parseInt(applicableInput.value) || 0;
+            
+            // Calculate percentage
+            let percentage = 0;
+            if (applicable > 0) {
+                percentage = Math.round((totalDecision / applicable) * 100);
+            }
+            
+            // Update percentage
+            const percentageCell = document.getElementById(`percentage-${categoryId}`);
+            percentageCell.textContent = `${percentage}%`;
+            
+            // Update gap automatically
+            const gapSelect = document.getElementById(`gap-${categoryId}`);
+            if (totalDecision < applicable) {
+                gapSelect.value = 'Yes';
+            } else {
+                gapSelect.value = 'No';
+            }
+            
+            // Update check action
+            const checkCell = document.getElementById(`check-${categoryId}`);
+            if (gapSelect.value === 'Yes' && percentage < 70) {
+                checkCell.textContent = 'X';
+            } else {
+                checkCell.textContent = '';
+            }
+            
+            // Update percentage color
+            if (percentage >= 90) {
+                percentageCell.style.backgroundColor = var(--outstanding);
+            } else if (percentage >= 70) {
+                percentageCell.style.backgroundColor = var(--passing);
+            } else if (percentage >= 50) {
+                percentageCell.style.backgroundColor = var(--emerging);
+            } else {
+                percentageCell.style.backgroundColor = var(--notshown);
+            }
         }
 
-        // Determine maturity level based on percentage
-        function getMaturityLevel(percentage) {
-            if (percentage < 15) return 0;
-            if (percentage < 50) return 1;
-            if (percentage < 85) return 2;
-            if (percentage < 95) return 3;
-            if (percentage < 98) return 4;
-            return 5;
-        }
-
-        // Show recommendations based on scores
-        function showRecommendations(scores, maturityLevel) {
-            let recommendations = [];
-
-            // General maturity recommendations
-            switch(maturityLevel) {
-                case 0:
-                    recommendations.push("🚨 <strong>Critical:</strong> Fundamental processes are not implemented. Immediate action required to establish basic process capabilities.");
-                    break;
-                case 1:
-                    recommendations.push("⚠️ <strong>Basic Level:</strong> Focus on establishing managed processes with proper planning and monitoring.");
-                    break;
-                case 2:
-                    recommendations.push("📈 <strong>Managed Level:</strong> Work on standardizing processes and establishing defined procedures.");
-                    break;
-                case 3:
-                    recommendations.push("✅ <strong>Established Level:</strong> Consider implementing quantitative management and predictable processes.");
-                    break;
-                case 4:
-                    recommendations.push("🎯 <strong>Predictable Level:</strong> Focus on continuous innovation and optimization.");
-                    break;
-                case 5:
-                    recommendations.push("🏆 <strong>Innovating Level:</strong> Excellent! Maintain current practices and share best practices.");
-                    break;
-            }
-
-            // Specific process recommendations
-            if (scores.sys < 70) {
-                recommendations.push("🔧 <strong>System Engineering:</strong> Improve requirements elicitation and system architecture definition for navigation systems.");
-            }
-            if (scores.swe < 70) {
-                recommendations.push("💻 <strong>Software Engineering:</strong> Strengthen software development practices, especially for navigation algorithms and user interface components.");
-            }
-            if (scores.man < 70) {
-                recommendations.push("📊 <strong>Management:</strong> Enhance project management, risk management, and measurement practices.");
-            }
-            if (scores.sup < 70) {
-                recommendations.push("🛠️ <strong>Supporting Processes:</strong> Improve quality assurance, configuration management, and problem resolution.");
-            }
-            if (scores.val < 70) {
-                recommendations.push("🧪 <strong>Validation:</strong> Strengthen validation processes for real-world navigation scenarios and user acceptance testing.");
-            }
-
-            // Navigation-specific recommendations
-            recommendations.push("🗺️ <strong>Navigation-Specific:</strong> Ensure GPS accuracy validation, map data quality assurance, and real-time traffic integration testing.");
-            recommendations.push("📱 <strong>User Experience:</strong> Focus on user interface usability testing and accessibility compliance for navigation systems.");
-
-            document.getElementById('recommendationText').innerHTML = recommendations.join('<br><br>');
-        }
-
-        // Reset assessment
-        function resetAssessment() {
-            if (confirm('Are you sure you want to reset the entire assessment?')) {
-                const allRadios = document.querySelectorAll('input[type="radio"]');
-                allRadios.forEach(radio => {
-                    radio.checked = false;
+        // Save analysis
+        function saveAnalysis() {
+            const analysisData = {
+                supplierCode: document.getElementById('supplier-code').value,
+                supplierName: document.getElementById('supplier-name').value,
+                softwareType: document.getElementById('software-type').value,
+                auditedBy: document.getElementById('audited-by').value,
+                teamMembers: document.getElementById('team-members').value,
+                comment: document.getElementById('comment').value,
+                categories: []
+            };
+            
+            criteriaData.forEach(category => {
+                const categoryData = {
+                    id: category.id,
+                    title: category.title,
+                    applicable: document.getElementById(`applicable-${category.id}`).value,
+                    evidence: document.getElementById(`evidence-${category.id}`).value,
+                    gap: document.getElementById(`gap-${category.id}`).value,
+                    subItems: []
+                };
+                
+                category.subItems.forEach(subItem => {
+                    categoryData.subItems.push({
+                        id: subItem.id,
+                        text: subItem.text,
+                        decision: document.getElementById(`decision-${subItem.id}`).value
+                    });
                 });
                 
-                document.getElementById('scoreDisplay').style.display = 'none';
-                updateProgress();
-                
-                // Close all process sections
-                const allContents = document.querySelectorAll('.process-content');
-                const allHeaders = document.querySelectorAll('.process-header');
-                allContents.forEach(content => content.classList.remove('active'));
-                allHeaders.forEach(header => header.classList.remove('active'));
-            }
+                analysisData.categories.push(categoryData);
+            });
+            
+            localStorage.setItem('openAnalysis', JSON.stringify(analysisData));
+            alert('Analysis saved successfully!');
         }
 
-        // Export results
-        function exportResults() {
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            if (scoreDisplay.style.display === 'none') {
-                alert('Please calculate assessment results first.');
-                return;
-            }
-
-            const results = {
-                timestamp: new Date().toISOString(),
-                company: 'Navigation Systems Company',
-                assessmentType: 'Automotive SPICE v4.0',
-                scores: {
-                    sys: document.getElementById('sysScore').textContent,
-                    swe: document.getElementById('sweScore').textContent,
-                    man: document.getElementById('manScore').textContent,
-                    sup: document.getElementById('supScore').textContent,
-                    val: document.getElementById('valScore').textContent,
-                    spl: document.getElementById('splScore').textContent,
-                    pim: document.getElementById('pimScore').textContent,
-                    overall: document.getElementById('overallScore').textContent
-                },
-                recommendations: document.getElementById('recommendationText').innerHTML
-            };
-
-            const dataStr = JSON.stringify(results, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        // Export to Excel
+        function exportToExcel() {
+            // Create CSV content
+            let csvContent = "O.P.E.N. System Analysis\n\n";
+            csvContent += `Supplier code:,${document.getElementById('supplier-code').value}\n`;
+            csvContent += `Supplier name:,${document.getElementById('supplier-name').value}\n`;
+            csvContent += `Type of Software:,${document.getElementById('software-type').value}\n`;
+            csvContent += `Audited by:,${document.getElementById('audited-by').value}\n`;
+            csvContent += `Team members:,${document.getElementById('team-members').value}\n`;
+            csvContent += `Comment:,${document.getElementById('comment').value}\n\n`;
             
+            csvContent += "Category,Sub-item,Description,Decision,Applicable,Percentage,Evidence,Gap,Action Required\n";
+            
+            criteriaData.forEach(category => {
+                const decision = document.getElementById(`decision-total-${category.id}`).textContent;
+                const applicable = document.getElementById(`applicable-${category.id}`).value;
+                const percentage = document.getElementById(`percentage-${category.id}`).textContent;
+                const evidence = document.getElementById(`evidence-${category.id}`).value;
+                const gap = document.getElementById(`gap-${category.id}`).value;
+                const action = document.getElementById(`check-${category.id}`).textContent;
+                
+                csvContent += `"${category.id} ${category.title}","","",${decision},${applicable},${percentage},"${evidence}",${gap},${action}\n`;
+                
+                category.subItems.forEach(subItem => {
+                    const subDecision = document.getElementById(`decision-${subItem.id}`).value;
+                    csvContent += `"","${subItem.id}","${subItem.text}",${subDecision},,,,\n`;
+                });
+            });
+            
+            // Download
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = `ASPICE_Assessment_${new Date().toISOString().split('T')[0]}.json`;
+            link.href = URL.createObjectURL(blob);
+            link.download = `OPEN_Analysis_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
         }
 
-        // Initialize progress on page load
-        updateProgress();
+        // Print report
+        function printReport() {
+            window.print();
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset all data?')) {
+                document.getElementById('supplier-code').value = '';
+                document.getElementById('supplier-name').value = '';
+                document.getElementById('software-type').value = '';
+                document.getElementById('audited-by').value = 'Jaewoo Joung';
+                document.getElementById('team-members').value = '';
+                document.getElementById('comment').value = '';
+                
+                criteriaData.forEach(category => {
+                    document.getElementById(`applicable-${category.id}`).value = category.subItems.length * 3;
+                    document.getElementById(`evidence-${category.id}`).value = '';
+                    document.getElementById(`gap-${category.id}`).value = '';
+                    
+                    category.subItems.forEach(subItem => {
+                        document.getElementById(`decision-${subItem.id}`).value = '0';
+                    });
+                    
+                    updateCategory(category.id);
+                });
+            }
+        }
+
+        // Load saved data
+        function loadSavedData() {
+            const saved = localStorage.getItem('openAnalysis');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    document.getElementById('supplier-code').value = data.supplierCode || '';
+                    document.getElementById('supplier-name').value = data.supplierName || '';
+                    document.getElementById('software-type').value = data.softwareType || '';
+                    document.getElementById('audited-by').value = data.auditedBy || 'Jaewoo Joung';
+                    document.getElementById('team-members').value = data.teamMembers || '';
+                    document.getElementById('comment').value = data.comment || '';
+                    
+                    if (data.categories) {
+                        data.categories.forEach(savedCategory => {
+                            const category = criteriaData.find(c => c.id === savedCategory.id);
+                            if (category) {
+                                document.getElementById(`applicable-${category.id}`).value = savedCategory.applicable || category.subItems.length * 3;
+                                document.getElementById(`evidence-${category.id}`).value = savedCategory.evidence || '';
+                                document.getElementById(`gap-${category.id}`).value = savedCategory.gap || '';
+                                
+                                if (savedCategory.subItems) {
+                                    savedCategory.subItems.forEach(savedSubItem => {
+                                        const subItemInput = document.getElementById(`decision-${savedSubItem.id}`);
+                                        if (subItemInput) {
+                                            subItemInput.value = savedSubItem.decision || '0';
+                                        }
+                                    });
+                                }
+                                
+                                updateCategory(category.id);
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                }
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeTable();
+            loadSavedData();
+        });
     </script>
 </body>
 </html>
